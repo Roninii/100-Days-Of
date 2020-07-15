@@ -16,7 +16,7 @@ import {
 
 export default defineComponent({
     setup() {
-        const challenges = reactive(['Code', 'CSS', 'Writing', 'Cooking']);
+        const challenges: Array<string> = reactive(['Code', 'CSS', 'Writing', 'Cooking']);
         const i = ref(0);
         const challenge = computed(() => challenges[i.value]);
 
