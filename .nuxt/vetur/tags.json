@@ -1,4 +1,10 @@
 {
+  "Nav": {
+    "description": "Auto imported from components/Nav.vue"
+  },
+  "LazyNav": {
+    "description": "Auto imported from components/Nav.vue"
+  },
   "Title": {
     "description": "Auto imported from components/Title.vue"
   },
