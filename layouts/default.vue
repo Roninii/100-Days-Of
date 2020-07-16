@@ -1,5 +1,5 @@
 <template>
-    <main class="min-h-screen">
-        <Nuxt />
-    </main>
+  <main class="min-h-screen border-t-4 border-teal-500">
+    <Nuxt />
+  </main>
 </template>

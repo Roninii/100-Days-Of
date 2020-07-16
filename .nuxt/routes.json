@@ -3,7 +3,6 @@
     "name": "index",
     "path": "/",
     "component": "/Users/ronnievillarini/dev/personal/100-days-of/pages/index.vue",
-    "chunkName": "pages/index",
-    "_name": "_4bda25f4"
+    "chunkName": "pages/index"
   }
 ]
