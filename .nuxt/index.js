@@ -11,10 +11,11 @@ import { setContext, getLocation, getRouteData, normalizeError } from './utils'
 
 /* Plugins */
 
-import nuxt_plugin_plugin_4f31a517 from 'nuxt_plugin_plugin_4f31a517' // Source: ./components/plugin.js (mode: 'all')
-import nuxt_plugin_workbox_d0340eee from 'nuxt_plugin_workbox_d0340eee' // Source: ./workbox.js (mode: 'client')
-import nuxt_plugin_nuxticons_694452bb from 'nuxt_plugin_nuxticons_694452bb' // Source: ./nuxt-icons.js (mode: 'all')
-import nuxt_plugin_axios_daed0aa6 from 'nuxt_plugin_axios_daed0aa6' // Source: ./axios.js (mode: 'all')
+import nuxt_plugin_plugin_3e12a614 from 'nuxt_plugin_plugin_3e12a614' // Source: ./components/plugin.js (mode: 'all')
+import nuxt_plugin_workbox_6787a1c6 from 'nuxt_plugin_workbox_6787a1c6' // Source: ./workbox.js (mode: 'client')
+import nuxt_plugin_nuxticons_921c7744 from 'nuxt_plugin_nuxticons_921c7744' // Source: ./nuxt-icons.js (mode: 'all')
+import nuxt_plugin_axios_9fe361ac from 'nuxt_plugin_axios_9fe361ac' // Source: ./axios.js (mode: 'all')
+import nuxt_plugin_compositionapi_58e58014 from 'nuxt_plugin_compositionapi_58e58014' // Source: ../plugins/composition-api.js (mode: 'all')
 
 // Component: <ClientOnly>
 Vue.component(ClientOnly.name, ClientOnly)
@@ -167,20 +168,24 @@ async function createApp(ssrContext, config = {}) {
   }
   // Plugin execution
 
-  if (typeof nuxt_plugin_plugin_4f31a517 === 'function') {
-    await nuxt_plugin_plugin_4f31a517(app.context, inject)
+  if (typeof nuxt_plugin_plugin_3e12a614 === 'function') {
+    await nuxt_plugin_plugin_3e12a614(app.context, inject)
   }
 
-  if (process.client && typeof nuxt_plugin_workbox_d0340eee === 'function') {
-    await nuxt_plugin_workbox_d0340eee(app.context, inject)
+  if (process.client && typeof nuxt_plugin_workbox_6787a1c6 === 'function') {
+    await nuxt_plugin_workbox_6787a1c6(app.context, inject)
   }
 
-  if (typeof nuxt_plugin_nuxticons_694452bb === 'function') {
-    await nuxt_plugin_nuxticons_694452bb(app.context, inject)
+  if (typeof nuxt_plugin_nuxticons_921c7744 === 'function') {
+    await nuxt_plugin_nuxticons_921c7744(app.context, inject)
   }
 
-  if (typeof nuxt_plugin_axios_daed0aa6 === 'function') {
-    await nuxt_plugin_axios_daed0aa6(app.context, inject)
+  if (typeof nuxt_plugin_axios_9fe361ac === 'function') {
+    await nuxt_plugin_axios_9fe361ac(app.context, inject)
+  }
+
+  if (typeof nuxt_plugin_compositionapi_58e58014 === 'function') {
+    await nuxt_plugin_compositionapi_58e58014(app.context, inject)
   }
 
   // Lock enablePreview in context

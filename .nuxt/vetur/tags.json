@@ -1,8 +1,8 @@
 {
-  "Logo": {
-    "description": "Auto imported from components/Logo.vue"
+  "Title": {
+    "description": "Auto imported from components/Title.vue"
   },
-  "LazyLogo": {
-    "description": "Auto imported from components/Logo.vue"
+  "LazyTitle": {
+    "description": "Auto imported from components/Title.vue"
   }
 }
