@@ -23,9 +23,6 @@ export default defineComponent({
       required: false,
     },
   },
-  setup(props, ctx) {
-    console.log(props)
-  },
 })
 </script>
 
