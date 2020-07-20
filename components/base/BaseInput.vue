@@ -25,7 +25,7 @@ export default defineComponent({
     },
   },
   setup(props, ctx) {
-    const { attrs } = toRefs(ctx)
+    const { attrs } = ctx
 
     return {
       attrs,

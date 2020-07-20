@@ -4,7 +4,7 @@
       <BaseInput type="email" label="email" />
       <BaseInput type="password" label="password" />
       <div class="flex justify-center">
-        <input type="submit" value="Log In" />
+        <BaseButton type="submit" label="Log In" />
       </div>
     </form>
   </BaseCard>
