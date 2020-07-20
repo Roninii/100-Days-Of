@@ -3,7 +3,13 @@
     <label
       v-if="label"
       :for="label"
-      :class="['absolute', 'text-sm', 'text-gray-600', 'uppercase, inline']"
+      :class="[
+        'absolute',
+        'text-sm',
+        'text-gray-600',
+        'uppercase',
+        value ? 'shrink' : 'inline',
+      ]"
       >{{ label }}</label
     >
     <input
@@ -22,6 +28,7 @@ import { defineComponent, toRefs, computed } from '@vue/composition-api'
 export default defineComponent({
   props: ['label', 'value'],
   setup(props, ctx) {
+    const { value } = toRefs(props)
     const { attrs, listeners, emit } = ctx
 
     const eventListeners = computed(() => {
@@ -55,8 +62,12 @@ export default defineComponent({
   transition: all 200ms linear;
 }
 
-.base-input:focus-within .inline {
+.shrink {
   bottom: 2rem;
   @apply text-xs;
+}
+
+.base-input:focus-within label {
+  @apply shrink;
 }
 </style>
