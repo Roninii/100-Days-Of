@@ -11,10 +11,11 @@ import { setContext, getLocation, getRouteData, normalizeError } from './utils'
 
 /* Plugins */
 
-import nuxt_plugin_plugin_4f31a517 from 'nuxt_plugin_plugin_4f31a517' // Source: ./components/plugin.js (mode: 'all')
-import nuxt_plugin_workbox_d0340eee from 'nuxt_plugin_workbox_d0340eee' // Source: ./workbox.js (mode: 'client')
-import nuxt_plugin_nuxticons_694452bb from 'nuxt_plugin_nuxticons_694452bb' // Source: ./nuxt-icons.js (mode: 'all')
-import nuxt_plugin_axios_daed0aa6 from 'nuxt_plugin_axios_daed0aa6' // Source: ./axios.js (mode: 'all')
+import nuxt_plugin_plugin_3e12a614 from 'nuxt_plugin_plugin_3e12a614' // Source: ./components/plugin.js (mode: 'all')
+import nuxt_plugin_workbox_6787a1c6 from 'nuxt_plugin_workbox_6787a1c6' // Source: ./workbox.js (mode: 'client')
+import nuxt_plugin_nuxticons_921c7744 from 'nuxt_plugin_nuxticons_921c7744' // Source: ./nuxt-icons.js (mode: 'all')
+import nuxt_plugin_plugin_0050765a from 'nuxt_plugin_plugin_0050765a' // Source: ./vuetify/plugin.js (mode: 'all')
+import nuxt_plugin_axios_9fe361ac from 'nuxt_plugin_axios_9fe361ac' // Source: ./axios.js (mode: 'all')
 import nuxt_plugin_compositionapi_58e58014 from 'nuxt_plugin_compositionapi_58e58014' // Source: ../plugins/composition-api.js (mode: 'all')
 
 // Component: <ClientOnly>
@@ -54,7 +55,7 @@ async function createApp(ssrContext, config = {}) {
   // here we inject the router and store to all child components,
   // making them available everywhere as `this.$router` and `this.$store`.
   const app = {
-    head: {"title":"100-days-of","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":"## Build Setup"},{"hid":"mobile-web-app-capable","name":"mobile-web-app-capable","content":"yes"},{"hid":"apple-mobile-web-app-title","name":"apple-mobile-web-app-title","content":"100-days-of"},{"hid":"theme-color","name":"theme-color","content":"black"},{"hid":"og:type","name":"og:type","property":"og:type","content":"website"},{"hid":"og:title","name":"og:title","property":"og:title","content":"100-days-of"},{"hid":"og:site_name","name":"og:site_name","property":"og:site_name","content":"100-days-of"},{"hid":"og:description","name":"og:description","property":"og:description","content":"## Build Setup"}],"link":[{"rel":"icon","type":"image\u002Fx-icon","href":"\u002Ffavicon.ico"},{"rel":"manifest","href":"\u002F_nuxt\u002Fmanifest.ccc19480.json"}],"style":[],"script":[],"htmlAttrs":{"lang":"en"}},
+    head: {"title":"100-days-of","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":"## Build Setup"},{"hid":"mobile-web-app-capable","name":"mobile-web-app-capable","content":"yes"},{"hid":"apple-mobile-web-app-title","name":"apple-mobile-web-app-title","content":"100-days-of"},{"hid":"theme-color","name":"theme-color","content":"black"},{"hid":"og:type","name":"og:type","property":"og:type","content":"website"},{"hid":"og:title","name":"og:title","property":"og:title","content":"100-days-of"},{"hid":"og:site_name","name":"og:site_name","property":"og:site_name","content":"100-days-of"},{"hid":"og:description","name":"og:description","property":"og:description","content":"## Build Setup"}],"link":[{"rel":"icon","type":"image\u002Fx-icon","href":"\u002Ffavicon.ico"},{"rel":"manifest","href":"\u002F_nuxt\u002Fmanifest.ccc19480.json"},{"rel":"stylesheet","type":"text\u002Fcss","href":"https:\u002F\u002Ffonts.googleapis.com\u002Fcss?family=Roboto:100,300,400,500,700,900&display=swap"},{"rel":"stylesheet","type":"text\u002Fcss","href":"https:\u002F\u002Fcdn.jsdelivr.net\u002Fnpm\u002F@mdi\u002Ffont@latest\u002Fcss\u002Fmaterialdesignicons.min.css"}],"style":[],"script":[],"htmlAttrs":{"lang":"en"}},
 
     router,
     nuxt: {
@@ -168,20 +169,24 @@ async function createApp(ssrContext, config = {}) {
   }
   // Plugin execution
 
-  if (typeof nuxt_plugin_plugin_4f31a517 === 'function') {
-    await nuxt_plugin_plugin_4f31a517(app.context, inject)
+  if (typeof nuxt_plugin_plugin_3e12a614 === 'function') {
+    await nuxt_plugin_plugin_3e12a614(app.context, inject)
   }
 
-  if (process.client && typeof nuxt_plugin_workbox_d0340eee === 'function') {
-    await nuxt_plugin_workbox_d0340eee(app.context, inject)
+  if (process.client && typeof nuxt_plugin_workbox_6787a1c6 === 'function') {
+    await nuxt_plugin_workbox_6787a1c6(app.context, inject)
   }
 
-  if (typeof nuxt_plugin_nuxticons_694452bb === 'function') {
-    await nuxt_plugin_nuxticons_694452bb(app.context, inject)
+  if (typeof nuxt_plugin_nuxticons_921c7744 === 'function') {
+    await nuxt_plugin_nuxticons_921c7744(app.context, inject)
   }
 
-  if (typeof nuxt_plugin_axios_daed0aa6 === 'function') {
-    await nuxt_plugin_axios_daed0aa6(app.context, inject)
+  if (typeof nuxt_plugin_plugin_0050765a === 'function') {
+    await nuxt_plugin_plugin_0050765a(app.context, inject)
+  }
+
+  if (typeof nuxt_plugin_axios_9fe361ac === 'function') {
+    await nuxt_plugin_axios_9fe361ac(app.context, inject)
   }
 
   if (typeof nuxt_plugin_compositionapi_58e58014 === 'function') {
