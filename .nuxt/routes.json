@@ -1,9 +1,16 @@
 [
   {
+    "name": "Communities",
+    "path": "/Communities",
+    "component": "/home/ronini/dev/personal/100-Days-Of/pages/Communities.vue",
+    "chunkName": "pages/Communities",
+    "_name": "_9f2e8f34"
+  },
+  {
     "name": "index",
     "path": "/",
-    "component": "/Users/ronnievillarini/dev/personal/100-days-of/pages/index.vue",
+    "component": "/home/ronini/dev/personal/100-Days-Of/pages/index.vue",
     "chunkName": "pages/index",
-    "_name": "_4bda25f4"
+    "_name": "_8e772a5e"
   }
 ]

@@ -5,10 +5,16 @@
   "LazyNav": {
     "description": "Auto imported from components/Nav.vue"
   },
+  "About": {
+    "description": "Auto imported from components/homepage/About.vue"
+  },
+  "LazyAbout": {
+    "description": "Auto imported from components/homepage/About.vue"
+  },
   "Title": {
-    "description": "Auto imported from components/Title.vue"
+    "description": "Auto imported from components/homepage/Title.vue"
   },
   "LazyTitle": {
-    "description": "Auto imported from components/Title.vue"
+    "description": "Auto imported from components/homepage/Title.vue"
   }
 }
