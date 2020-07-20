@@ -1,0 +1,32 @@
+<template>
+  <aside class="shadow rounded-md p-8">
+    <header v-if="title">
+      <h2 class="text-xl">
+        {{ title }}
+      </h2>
+    </header>
+    <slot />
+  </aside>
+</template>
+
+<script lang="ts">
+import { defineComponent } from '@vue/composition-api'
+
+interface Props {
+  title: String
+}
+
+export default defineComponent({
+  props: {
+    title: {
+      type: String,
+      required: false,
+    },
+  },
+  setup(props, ctx) {
+    console.log(props)
+  },
+})
+</script>
+
+<style scoped></style>

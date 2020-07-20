@@ -5,6 +5,12 @@
   "LazyNav": {
     "description": "Auto imported from components/Nav.vue"
   },
+  "Card": {
+    "description": "Auto imported from components/base/Card.vue"
+  },
+  "LazyCard": {
+    "description": "Auto imported from components/base/Card.vue"
+  },
   "About": {
     "description": "Auto imported from components/homepage/About.vue"
   },
@@ -16,5 +22,17 @@
   },
   "LazyTitle": {
     "description": "Auto imported from components/homepage/Title.vue"
+  },
+  "SignIn": {
+    "description": "Auto imported from components/sign-in/SignIn.vue"
+  },
+  "LazySignIn": {
+    "description": "Auto imported from components/sign-in/SignIn.vue"
+  },
+  "SignUp": {
+    "description": "Auto imported from components/sign-up/SignUp.vue"
+  },
+  "LazySignUp": {
+    "description": "Auto imported from components/sign-up/SignUp.vue"
   }
 }
