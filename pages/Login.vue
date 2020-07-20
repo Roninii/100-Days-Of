@@ -1,5 +1,5 @@
 <template>
-  <div class="grid md:grid-cols-2 max-w-screen-lg mx-auto py-16">
+  <div class="flex flex-wrap justify-evenly mx-auto py-16">
     <SignIn />
     <SignUp />
   </div>

@@ -1,5 +1,5 @@
 <template>
-  <Card class="shadow rounded-md p-8" title="Login with email and password">
+  <Card title="Login with email and password">
     <form class="grid gap-10 py-8 leading-relaxed text-lg">
       <input type="email" />
       <input type="password" />

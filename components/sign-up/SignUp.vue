@@ -1,8 +1,5 @@
 <template>
-  <aside>
-    <header></header>
-    <section></section>
-  </aside>
+  <Card title="Don't have an account yet? Sign up now!" />
 </template>
 
 <script>
