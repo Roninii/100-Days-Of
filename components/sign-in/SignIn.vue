@@ -1,6 +1,6 @@
 <template>
   <BaseCard title="Login with email and password">
-    <form class="grid gap-10 py-8 leading-relaxed text-lg" @submit.prevent="">
+    <form class="grid gap-10 py-8 leading-relaxed text-lg" @submit.prevent>
       <BaseInput type="email" label="email" />
       <BaseInput type="password" label="password" />
       <div class="grid grid-flow-col gap-2">
@@ -13,10 +13,12 @@
 
 <script>
 import { defineComponent } from '@vue/composition-api'
+import { required, email } from 'vuelidate/lib/validators'
 
 export default defineComponent({
-  methods: {},
+  validations: {
+    email: { required, email },
+    password: { required },
+  },
 })
 </script>
-
-<style scoped></style>

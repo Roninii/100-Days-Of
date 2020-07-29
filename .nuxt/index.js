@@ -17,6 +17,7 @@ import nuxt_plugin_nuxticons_694452bb from 'nuxt_plugin_nuxticons_694452bb' // S
 import nuxt_plugin_main_1629d315 from 'nuxt_plugin_main_1629d315' // Source: ./firebase-module/main.js (mode: 'all')
 import nuxt_plugin_axios_daed0aa6 from 'nuxt_plugin_axios_daed0aa6' // Source: ./axios.js (mode: 'all')
 import nuxt_plugin_compositionapi_58e58014 from 'nuxt_plugin_compositionapi_58e58014' // Source: ../plugins/composition-api.js (mode: 'all')
+import nuxt_plugin_vuelidate_45aab49a from 'nuxt_plugin_vuelidate_45aab49a' // Source: ../plugins/vuelidate.js (mode: 'all')
 
 // Component: <ClientOnly>
 Vue.component(ClientOnly.name, ClientOnly)
@@ -45,7 +46,7 @@ Vue.component(Nuxt.name, Nuxt)
 
 Vue.use(Meta, {"keyName":"head","attribute":"data-n-head","ssrAttribute":"data-n-head-ssr","tagIDKeyName":"hid"})
 
-const defaultTransition = {"name":"page","mode":"out-in","appear":true,"appearClass":"appear","appearActiveClass":"appear-active","appearToClass":"appear-to"}
+const defaultTransition = {"name":"page","mode":"out-in","appear":false,"appearClass":"appear","appearActiveClass":"appear-active","appearToClass":"appear-to"}
 
 async function createApp(ssrContext, config = {}) {
   const router = await createRouter(ssrContext)
@@ -55,7 +56,7 @@ async function createApp(ssrContext, config = {}) {
   // here we inject the router and store to all child components,
   // making them available everywhere as `this.$router` and `this.$store`.
   const app = {
-    head: {"title":"100-days-of","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":"## Build Setup"},{"hid":"mobile-web-app-capable","name":"mobile-web-app-capable","content":"yes"},{"hid":"apple-mobile-web-app-title","name":"apple-mobile-web-app-title","content":"100-days-of"},{"hid":"theme-color","name":"theme-color","content":"black"},{"hid":"og:type","name":"og:type","property":"og:type","content":"website"},{"hid":"og:title","name":"og:title","property":"og:title","content":"100-days-of"},{"hid":"og:site_name","name":"og:site_name","property":"og:site_name","content":"100-days-of"},{"hid":"og:description","name":"og:description","property":"og:description","content":"## Build Setup"}],"link":[{"rel":"icon","type":"image\u002Fx-icon","href":"\u002Ffavicon.ico"},{"rel":"manifest","href":"\u002F_nuxt\u002Fmanifest.ccc19480.json"}],"style":[],"script":[],"htmlAttrs":{"lang":"en"}},
+    head: {"title":"100-days-of","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":"## Build Setup"},{"hid":"mobile-web-app-capable","name":"mobile-web-app-capable","content":"yes"},{"hid":"apple-mobile-web-app-title","name":"apple-mobile-web-app-title","content":"100-days-of"},{"hid":"theme-color","name":"theme-color","content":"black"},{"hid":"og:type","name":"og:type","property":"og:type","content":"website"},{"hid":"og:title","name":"og:title","property":"og:title","content":"100-days-of"},{"hid":"og:site_name","name":"og:site_name","property":"og:site_name","content":"100-days-of"},{"hid":"og:description","name":"og:description","property":"og:description","content":"## Build Setup"}],"link":[{"rel":"icon","type":"image\u002Fx-icon","href":"\u002Ffavicon.ico"},{"rel":"manifest","href":"\u002F_nuxt\u002Fmanifest.a8b0b5f0.json"},{"rel":"shortcut icon","href":"\u002F_nuxt\u002Ficons\u002Ficon_64.5f6a36.png"},{"rel":"apple-touch-icon","href":"\u002F_nuxt\u002Ficons\u002Ficon_512.5f6a36.png","sizes":"512x512"}],"style":[],"script":[],"htmlAttrs":{"lang":"en"}},
 
     router,
     nuxt: {
@@ -191,6 +192,10 @@ async function createApp(ssrContext, config = {}) {
 
   if (typeof nuxt_plugin_compositionapi_58e58014 === 'function') {
     await nuxt_plugin_compositionapi_58e58014(app.context, inject)
+  }
+
+  if (typeof nuxt_plugin_vuelidate_45aab49a === 'function') {
+    await nuxt_plugin_vuelidate_45aab49a(app.context, inject)
   }
 
   // Lock enablePreview in context
