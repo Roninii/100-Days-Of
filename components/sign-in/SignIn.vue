@@ -16,9 +16,14 @@
 </template>
 
 <script>
+import { required, email } from 'vuelidate/lib/validators'
 import { defineComponent, ref } from '@vue/composition-api'
 
 export default defineComponent({
+  validations: {
+    email: { required, email },
+    password: { required },
+  },
   setup(props, ctx) {
     const { $fireAuthObj } = ctx.root
 
@@ -41,5 +46,3 @@ function useGoogleLogin(auth) {
   return auth.signInWithPopup(provider)
 }
 </script>
-
-<style scoped></style>

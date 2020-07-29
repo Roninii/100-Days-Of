@@ -3,7 +3,7 @@ export default {
    ** Nuxt rendering mode
    ** See https://nuxtjs.org/api/configuration-mode
    */
-  mode: 'spa',
+  mode: 'universal',
   /*
    ** Nuxt target
    ** See https://nuxtjs.org/api/configuration-target
@@ -34,9 +34,7 @@ export default {
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: [
-    '@/plugins/composition-api.js'
-  ],
+  plugins: ['@/plugins/composition-api.js', '@/plugins/vuelidate.js'],
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components
@@ -59,6 +57,20 @@ export default {
     '@nuxtjs/pwa',
     '@nuxtjs/firebase',
   ],
+  firebase: {
+    config: {
+      apiKey: 'AIzaSyB1KxXuIzBmSpZuk1Z8YXIcK_6dmLNIMUI',
+      authDomain: 'days-of-a5da8.firebaseapp.com',
+      databaseURL: 'https://days-of-a5da8.firebaseio.com',
+      projectId: 'days-of-a5da8',
+      storageBucket: 'days-of-a5da8.appspot.com',
+      messagingSenderId: '971937063349',
+      appId: '1:971937063349:web:2164a8901b4fa70baf79fc',
+    },
+    services: {
+      auth: true,
+    },
+  },
   /*
   ** firebase config
   */
