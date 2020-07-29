@@ -5,7 +5,11 @@
       <BaseInput type="password" label="password" v-model="password" />
       <div class="grid grid-flow-col gap-2">
         <BaseButton type="submit" label="Log In" />
-        <BaseButton type="button" label="Google Sign In" />
+        <BaseButton
+          type="button"
+          label="Google Sign In"
+          @click="googleSignIn"
+        />
       </div>
     </form>
   </BaseCard>
@@ -15,15 +19,27 @@
 import { defineComponent, ref } from '@vue/composition-api'
 
 export default defineComponent({
-  setup() {
+  setup(props, ctx) {
+    const { $fireAuthObj } = ctx.root
+
     const email = ref('')
     const password = ref('')
+    const googleSignIn = useGoogleLogin($fireAuthObj)
 
     return {
       email,
+      password,
+      googleSignIn,
     }
   },
 })
+
+function useGoogleLogin(auth) {
+  const provider = new auth.GoogleAuthProvider()
+  provider.setCustomParameters({ prompt: 'select_account' })
+
+  return auth.signInWithPopup(provider)
+}
 </script>
 
 <style scoped></style>
