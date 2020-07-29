@@ -1,14 +1,17 @@
 <template>
   <BaseCard title="Login with email and password">
     <form class="grid gap-10 py-8 leading-relaxed text-lg" @submit.prevent="">
-      <BaseInput type="email" label="email" v-model="email" />
-      <BaseInput type="password" label="password" v-model="password" />
-      <div class="grid grid-flow-col gap-2">
-        <BaseButton type="submit" label="Log In" />
+      <BaseInput type="email" label="email" v-model="email" required @blur='$v.email.$touch()'/>
+      <BaseInput type="password" label="password" v-model="password" required @blur='$v.password.$touch()'/>
+      <div class="grid grid-cols-2 gap-2">
+        <p class="col-span-2 border border-red-800 rounded bg-red-200 text-red-800 px-4 py-2 text-sm" v-if='$v.anyError'>
+          Please fill out all required fields.
+        </p>
+        <BaseButton type="submit" label="Log In" class='col-span-2 sm:col-span-1'/>
         <BaseButton
           type="button"
           label="Google Sign In"
-          @click="googleSignIn"
+          class='col-span-2 sm:col-span-1'
         />
       </div>
     </form>
@@ -25,16 +28,16 @@ export default defineComponent({
     password: { required },
   },
   setup(props, ctx) {
-    const { $fireAuthObj } = ctx.root
+    // const { $fireAuthObj } = ctx.root
 
     const email = ref('')
     const password = ref('')
-    const googleSignIn = useGoogleLogin($fireAuthObj)
+    // const googleSignIn = useGoogleLogin($fireAuthObj)
 
     return {
       email,
       password,
-      googleSignIn,
+      // googleSignIn,
     }
   },
 })
