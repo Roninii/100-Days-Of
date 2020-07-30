@@ -28,6 +28,7 @@
           type="submit"
           label="Log In"
           class="col-span-2 sm:col-span-1"
+          :disabled="$v.$invalid"
         />
         <BaseButton
           type="button"
