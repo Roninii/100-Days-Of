@@ -34,6 +34,7 @@
           type="button"
           label="Google Sign In"
           class="col-span-2 sm:col-span-1"
+          @click="signInWithGoogle"
         />
       </div>
     </form>
@@ -53,10 +54,23 @@ export default defineComponent({
     const email = ref('')
     const password = ref('')
 
+    const { signInWithGoogle } = useGoogleAuth(ctx)
+
     return {
       email,
       password,
+      signInWithGoogle,
     }
   },
 })
+
+function useGoogleAuth({ root: { $fireAuthObj, $fireAuth } }) {
+  // const auth = $fireAuth.signInWithPopup
+  const provider = new $fireAuthObj.GoogleAuthProvider()
+  provider.setCustomParameters({ prompt: 'select_account' })
+
+  return {
+    signInWithGoogle: () => $fireAuth.signInWithPopup(provider),
+  }
+}
 </script>
