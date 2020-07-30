@@ -7,6 +7,13 @@
     "_name": "_9f2e8f34"
   },
   {
+    "name": "Login",
+    "path": "/Login",
+    "component": "/home/ronini/dev/personal/100-Days-Of/pages/Login.vue",
+    "chunkName": "pages/Login",
+    "_name": "_0c43a470"
+  },
+  {
     "name": "index",
     "path": "/",
     "component": "/home/ronini/dev/personal/100-Days-Of/pages/index.vue",

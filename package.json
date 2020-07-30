@@ -15,9 +15,12 @@
   "dependencies": {
     "@nuxt/typescript-runtime": "^0.4.10",
     "@nuxtjs/axios": "^5.11.0",
+    "@nuxtjs/firebase": "^6.1.0",
     "@nuxtjs/pwa": "^3.0.0-beta.20",
     "@vue/composition-api": "^1.0.0-beta.3",
-    "nuxt": "^2.13.0"
+    "firebase": "^7.16.1",
+    "nuxt": "^2.13.0",
+    "vuelidate": "^0.7.5"
   },
   "devDependencies": {
     "@nuxt/typescript-build": "^1.0.3",

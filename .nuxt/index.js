@@ -8,14 +8,18 @@ import NuxtError from './components/nuxt-error.vue'
 import Nuxt from './components/nuxt.js'
 import App from './App.js'
 import { setContext, getLocation, getRouteData, normalizeError } from './utils'
+import { createStore } from './store.js'
 
 /* Plugins */
 
 import nuxt_plugin_plugin_4f31a517 from 'nuxt_plugin_plugin_4f31a517' // Source: ./components/plugin.js (mode: 'all')
 import nuxt_plugin_workbox_d0340eee from 'nuxt_plugin_workbox_d0340eee' // Source: ./workbox.js (mode: 'client')
 import nuxt_plugin_nuxticons_694452bb from 'nuxt_plugin_nuxticons_694452bb' // Source: ./nuxt-icons.js (mode: 'all')
+import nuxt_plugin_main_1629d315 from 'nuxt_plugin_main_1629d315' // Source: ./firebase-module/main.js (mode: 'all')
+import nuxt_plugin_initAuth_088de3d4 from 'nuxt_plugin_initAuth_088de3d4' // Source: ./firebase-module/initAuth.js (mode: 'client')
 import nuxt_plugin_axios_daed0aa6 from 'nuxt_plugin_axios_daed0aa6' // Source: ./axios.js (mode: 'all')
 import nuxt_plugin_compositionapi_58e58014 from 'nuxt_plugin_compositionapi_58e58014' // Source: ../plugins/composition-api.js (mode: 'all')
+import nuxt_plugin_vuelidate_45aab49a from 'nuxt_plugin_vuelidate_45aab49a' // Source: ../plugins/vuelidate.js (mode: 'all')
 
 // Component: <ClientOnly>
 Vue.component(ClientOnly.name, ClientOnly)
@@ -44,18 +48,27 @@ Vue.component(Nuxt.name, Nuxt)
 
 Vue.use(Meta, {"keyName":"head","attribute":"data-n-head","ssrAttribute":"data-n-head-ssr","tagIDKeyName":"hid"})
 
-const defaultTransition = {"name":"page","mode":"out-in","appear":true,"appearClass":"appear","appearActiveClass":"appear-active","appearToClass":"appear-to"}
+const defaultTransition = {"name":"page","mode":"out-in","appear":false,"appearClass":"appear","appearActiveClass":"appear-active","appearToClass":"appear-to"}
 
 async function createApp(ssrContext, config = {}) {
   const router = await createRouter(ssrContext)
+
+  const store = createStore(ssrContext)
+  // Add this.$router into store actions/mutations
+  store.$router = router
+
+  // Fix SSR caveat https://github.com/nuxt/nuxt.js/issues/3757#issuecomment-414689141
+  const registerModule = store.registerModule
+  store.registerModule = (path, rawModule, options) => registerModule.call(store, path, rawModule, Object.assign({ preserveState: process.client }, options))
 
   // Create Root instance
 
   // here we inject the router and store to all child components,
   // making them available everywhere as `this.$router` and `this.$store`.
   const app = {
-    head: {"title":"100-days-of","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":"## Build Setup"},{"hid":"mobile-web-app-capable","name":"mobile-web-app-capable","content":"yes"},{"hid":"apple-mobile-web-app-title","name":"apple-mobile-web-app-title","content":"100-days-of"},{"hid":"theme-color","name":"theme-color","content":"black"},{"hid":"og:type","name":"og:type","property":"og:type","content":"website"},{"hid":"og:title","name":"og:title","property":"og:title","content":"100-days-of"},{"hid":"og:site_name","name":"og:site_name","property":"og:site_name","content":"100-days-of"},{"hid":"og:description","name":"og:description","property":"og:description","content":"## Build Setup"}],"link":[{"rel":"icon","type":"image\u002Fx-icon","href":"\u002Ffavicon.ico"},{"rel":"manifest","href":"\u002F_nuxt\u002Fmanifest.ccc19480.json"}],"style":[],"script":[],"htmlAttrs":{"lang":"en"}},
+    head: {"title":"100-days-of","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":"## Build Setup"},{"hid":"mobile-web-app-capable","name":"mobile-web-app-capable","content":"yes"},{"hid":"apple-mobile-web-app-title","name":"apple-mobile-web-app-title","content":"100-days-of"},{"hid":"theme-color","name":"theme-color","content":"black"},{"hid":"og:type","name":"og:type","property":"og:type","content":"website"},{"hid":"og:title","name":"og:title","property":"og:title","content":"100-days-of"},{"hid":"og:site_name","name":"og:site_name","property":"og:site_name","content":"100-days-of"},{"hid":"og:description","name":"og:description","property":"og:description","content":"## Build Setup"}],"link":[{"rel":"icon","type":"image\u002Fx-icon","href":"\u002Ffavicon.ico"},{"rel":"manifest","href":"\u002F_nuxt\u002Fmanifest.a8b0b5f0.json"},{"rel":"shortcut icon","href":"\u002F_nuxt\u002Ficons\u002Ficon_64.5f6a36.png"},{"rel":"apple-touch-icon","href":"\u002F_nuxt\u002Ficons\u002Ficon_512.5f6a36.png","sizes":"512x512"}],"style":[],"script":[],"htmlAttrs":{"lang":"en"}},
 
+    store,
     router,
     nuxt: {
       defaultTransition,
@@ -100,6 +113,9 @@ async function createApp(ssrContext, config = {}) {
     ...App
   }
 
+  // Make app available into store via this.app
+  store.app = app
+
   const next = ssrContext ? ssrContext.next : location => app.router.push(location)
   // Resolve route
   let route
@@ -112,6 +128,7 @@ async function createApp(ssrContext, config = {}) {
 
   // Set context to app.context
   await setContext(app, {
+    store,
     route,
     next,
     error: app.nuxt.error.bind(app),
@@ -138,6 +155,9 @@ async function createApp(ssrContext, config = {}) {
       app.context[key] = value
     }
 
+    // Add into store
+    store[key] = app[key]
+
     // Check if plugin not already installed
     const installKey = '__nuxt_' + key + '_installed__'
     if (Vue[installKey]) {
@@ -158,6 +178,13 @@ async function createApp(ssrContext, config = {}) {
 
   // Inject runtime config as $config
   inject('config', config)
+
+  if (process.client) {
+    // Replace store state before plugins execution
+    if (window.__NUXT__ && window.__NUXT__.state) {
+      store.replaceState(window.__NUXT__.state)
+    }
+  }
 
   // Add enablePreview(previewData = {}) in context for plugins
   if (process.static && process.client) {
@@ -180,12 +207,24 @@ async function createApp(ssrContext, config = {}) {
     await nuxt_plugin_nuxticons_694452bb(app.context, inject)
   }
 
+  if (typeof nuxt_plugin_main_1629d315 === 'function') {
+    await nuxt_plugin_main_1629d315(app.context, inject)
+  }
+
+  if (process.client && typeof nuxt_plugin_initAuth_088de3d4 === 'function') {
+    await nuxt_plugin_initAuth_088de3d4(app.context, inject)
+  }
+
   if (typeof nuxt_plugin_axios_daed0aa6 === 'function') {
     await nuxt_plugin_axios_daed0aa6(app.context, inject)
   }
 
   if (typeof nuxt_plugin_compositionapi_58e58014 === 'function') {
     await nuxt_plugin_compositionapi_58e58014(app.context, inject)
+  }
+
+  if (typeof nuxt_plugin_vuelidate_45aab49a === 'function') {
+    await nuxt_plugin_vuelidate_45aab49a(app.context, inject)
   }
 
   // Lock enablePreview in context
@@ -213,6 +252,7 @@ async function createApp(ssrContext, config = {}) {
   }
 
   return {
+    store,
     app,
     router
   }
