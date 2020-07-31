@@ -1,9 +1,18 @@
 <template>
   <BaseCard title="Don't have an account yet? Sign up now!">
-    <form class="grid gap-10 py-8 leading-relaxed text-lg" @submit.prevent="">
-      <BaseInput label="name" />
-      <BaseInput type="email" label="email" />
-      <BaseInput type="password" label="password" />
+    <form
+      class="grid gap-10 py-8 leading-relaxed text-lg"
+      @submit.prevent="signUp"
+    >
+      <BaseInput v-model="displayName" label="display name" required />
+      <BaseInput v-model="email" type="email" label="email" required />
+      <BaseInput v-model="password" type="password" label="password" required />
+      <BaseInput
+        v-model="confirmPass"
+        type="password"
+        label="confirm password"
+        required
+      />
 
       <div class="flex justify-center">
         <BaseButton type="submit" label="Submit" />
@@ -13,17 +22,56 @@
 </template>
 
 <script>
-import { defineComponent, ref } from '@vue/composition-api'
+import { defineComponent, toRefs, reactive } from '@vue/composition-api'
+import { required, email } from 'vuelidate/lib/validators'
+
+import createUserProfileDocument from '../../utils/createUserProfileDocument.ts'
 
 export default defineComponent({
   name: 'SignUp',
+  validations: {
+    displayName: { required },
+    email: { email, required },
+    password: { required },
+    comfirmPass: { required },
+  },
+  setup(props, { root: { $fireStore, $fireAuth } }) {
+    const signUpForm = reactive({
+      displayName: '',
+      email: '',
+      password: '',
+      confirmPass: '',
+    })
 
-  setup() {
-    const name = ref('')
-    const email = ref('')
-    const password = ref('')
+    const signUp = () => createUser(signUpForm, $fireAuth, $fireStore)
+
+    return {
+      signUp,
+      ...toRefs(signUpForm),
+    }
   },
 })
+
+async function createUser(form, $fireAuth, $fireStore) {
+  const { displayName, email, password, confirmPass } = toRefs(form)
+  if (password.value !== confirmPass.value) return
+
+  try {
+    const { user } = await $fireAuth.createUserWithEmailAndPassword(
+      email.value,
+      password.value
+    )
+
+    await createUserProfileDocument($fireStore, user, { ...displayName.value })
+
+    displayName.value = ''
+    email.value = ''
+    password.value = ''
+    confirmPass.value = ''
+  } catch (e) {
+    console.log('There was a problem creating the user', e)
+  }
+}
 </script>
 
 <style scoped></style>

@@ -73,6 +73,7 @@ export default {
           onAuthStateChangedAction: 'user/updateCurrentUser',
         },
       },
+      firestore: true,
     },
   },
   /*
