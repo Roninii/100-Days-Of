@@ -1,17 +1,21 @@
 export const state = () => ({
-  currentUser: {},
+  currentUser: null,
 })
 
 export const mutations = {
   SET_CURRENT_USER(state, authUser) {
-    state.currentUser.displayName = authUser.displayName
-    state.currentUser.id = authUser.uid
-    state.currentUser.email = authUser.email
+    authUser
+      ? (state.currentUser = {
+          displayName: authUser.displayName,
+          id: authUser.uid,
+          email: authUser.email,
+        })
+      : (state.currentUser = null)
   },
 }
 
 export const actions = {
   updateCurrentUser({ commit }, { authUser }) {
-    authUser && commit('SET_CURRENT_USER', authUser)
+    commit('SET_CURRENT_USER', authUser)
   },
 }

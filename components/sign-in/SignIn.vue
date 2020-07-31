@@ -50,9 +50,11 @@ export default defineComponent({
     email: { required, email },
     password: { required },
   },
+
   setup(props, ctx) {
     const email = ref('')
     const password = ref('')
+    // const error = ref('')
 
     const { signInWithGoogle } = useGoogleAuth(ctx)
 
@@ -64,13 +66,19 @@ export default defineComponent({
   },
 })
 
-function useGoogleAuth({ root: { $fireAuthObj, $fireAuth } }) {
-  // const auth = $fireAuth.signInWithPopup
+function useGoogleAuth({ root: { $fireAuthObj, $fireAuth, $router } }) {
   const provider = new $fireAuthObj.GoogleAuthProvider()
   provider.setCustomParameters({ prompt: 'select_account' })
 
   return {
-    signInWithGoogle: () => $fireAuth.signInWithPopup(provider),
+    signInWithGoogle: async () => {
+      try {
+        await $fireAuth.signInWithPopup(provider)
+        $router.push({ path: '/' })
+      } catch (e) {
+        console.log(e)
+      }
+    },
   }
 }
 </script>

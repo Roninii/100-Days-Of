@@ -23,6 +23,12 @@
   "LazyBaseInput": {
     "description": "Auto imported from components/base/BaseInput.vue"
   },
+  "SignUp": {
+    "description": "Auto imported from components/sign-up/SignUp.vue"
+  },
+  "LazySignUp": {
+    "description": "Auto imported from components/sign-up/SignUp.vue"
+  },
   "About": {
     "description": "Auto imported from components/homepage/About.vue"
   },
@@ -40,11 +46,5 @@
   },
   "LazySignIn": {
     "description": "Auto imported from components/sign-in/SignIn.vue"
-  },
-  "SignUp": {
-    "description": "Auto imported from components/sign-up/SignUp.vue"
-  },
-  "LazySignUp": {
-    "description": "Auto imported from components/sign-up/SignUp.vue"
   }
 }
