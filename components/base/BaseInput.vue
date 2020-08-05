@@ -15,9 +15,15 @@
     <input
       :id="label ? label : null"
       v-bind="attrs"
-      v-bind:value="value"
+      :value="value"
+      class=""
+      :class="[
+        'border-b-2',
+        'outline-none',
+        error ? 'border-red-500' : 'border-purple-500',
+        'w-full',
+      ]"
       v-on="eventListeners"
-      class="border-b-2 outline-none border-purple-500 w-full"
     />
   </div>
 </template>
@@ -26,26 +32,16 @@
 import { defineComponent, toRefs, computed } from '@vue/composition-api'
 
 export default defineComponent({
-  props: ['label', 'value'],
+  props: ['label', 'value', 'error'],
   setup(props, ctx) {
-    const { value } = toRefs(props)
     const { attrs, listeners, emit } = ctx
 
-    const eventListeners = computed(() => {
-      return Object.assign(
-        {},
-        // `Object.assign` merges objects together to form a new object
-        listeners,
-        // Then we can add custom listeners or override the
-        // behavior of some listeners.
-        {
-          // This ensures that the component works with v-model
-          input: function (event) {
-            emit('input', event.target.value)
-          },
-        }
-      )
-    })
+    const eventListeners = computed(() => ({
+      ...listeners,
+      input(event) {
+        emit('input', event.target.value)
+      },
+    }))
 
     return {
       attrs,

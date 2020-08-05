@@ -5,4 +5,20 @@
   </div>
 </template>
 
-<style scoped></style>
+<script>
+import { defineComponent, computed } from '@vue/composition-api'
+
+export default defineComponent({
+  name: 'Login',
+  setup(props, { root: { $store, $router } }) {
+    const isLoggedIn = computed(() => !!$store.state.user.currentUser)
+
+    // Navigation
+    if (isLoggedIn.value) $router.push({ path: '/' })
+
+    return {
+      isLoggedIn,
+    }
+  },
+})
+</script>
