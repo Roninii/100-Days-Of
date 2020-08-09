@@ -1,5 +1,5 @@
 <template>
-  <BaseCard title="Login with email and password">
+  <BaseCard title="Login with email and password" class="lg:w-1/3 m-4">
     <form class="grid gap-10 py-8 leading-relaxed text-lg" @submit.prevent="">
       <BaseInput
         v-model="email"
