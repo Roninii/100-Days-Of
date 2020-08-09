@@ -93,6 +93,13 @@ export default defineComponent({
   animation-name: open-menu;
 }
 
+@screen md {
+  .fade-out,
+  .fade-in {
+    animation: none;
+  }
+}
+
 @keyframes open-menu {
   0% {
     opacity: 1;
@@ -102,6 +109,7 @@ export default defineComponent({
   100% {
     opacity: 0;
     transform: translateX(1rem);
+    display: none;
   }
 }
 
@@ -114,6 +122,7 @@ export default defineComponent({
   100% {
     opacity: 1;
     transform: translateX(0);
+    display: none;
   }
 }
 </style>
