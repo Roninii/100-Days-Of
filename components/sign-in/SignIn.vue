@@ -41,7 +41,7 @@
   </BaseCard>
 </template>
 
-<script>
+<script lang="ts">
 import { required, email } from 'vuelidate/lib/validators'
 import { defineComponent, ref } from '@vue/composition-api'
 
@@ -51,12 +51,11 @@ export default defineComponent({
     password: { required },
   },
 
-  setup(props, ctx) {
+  setup(props, { root: { $fireAuthObj, $fireAuth, $router } }) {
     const email = ref('')
     const password = ref('')
-    // const error = ref('')
 
-    const { signInWithGoogle } = useGoogleAuth(ctx)
+    const { signInWithGoogle } = useGoogleAuth($fireAuthObj, $fireAuth, $router)
 
     return {
       email,
@@ -66,7 +65,7 @@ export default defineComponent({
   },
 })
 
-function useGoogleAuth({ root: { $fireAuthObj, $fireAuth, $router } }) {
+function useGoogleAuth($fireAuthObj: any, $fireAuth: any, $router: any) {
   const provider = new $fireAuthObj.GoogleAuthProvider()
   provider.setCustomParameters({ prompt: 'select_account' })
 

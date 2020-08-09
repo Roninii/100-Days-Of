@@ -34,7 +34,7 @@ export default {
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: ['@/plugins/composition-api.js', '@/plugins/vuelidate.js'],
+  plugins: ['@/plugins/composition-api.ts', '@/plugins/vuelidate.ts'],
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components

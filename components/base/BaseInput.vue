@@ -28,17 +28,15 @@
   </div>
 </template>
 
-<script>
-import { defineComponent, toRefs, computed } from '@vue/composition-api'
+<script lang="ts">
+import { defineComponent, computed } from '@vue/composition-api'
 
 export default defineComponent({
   props: ['label', 'value', 'error'],
-  setup(props, ctx) {
-    const { attrs, listeners, emit } = ctx
-
+  setup(props, { attrs, listeners, emit }) {
     const eventListeners = computed(() => ({
       ...listeners,
-      input(event) {
+      input(event: any) {
         emit('input', event.target.value)
       },
     }))

@@ -12,10 +12,6 @@
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api'
 
-interface Props {
-  title: String
-}
-
 export default defineComponent({
   props: {
     title: {
@@ -25,5 +21,3 @@ export default defineComponent({
   },
 })
 </script>
-
-<style scoped></style>

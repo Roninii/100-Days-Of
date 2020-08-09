@@ -32,8 +32,10 @@
   </header>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from '@vue/composition-api'
+
+export default defineComponent({
   computed: {
     atHome() {
       return this.$route.path === '/'
@@ -48,5 +50,5 @@ export default {
       this.$fireAuth.signOut()
     },
   },
-}
+})
 </script>

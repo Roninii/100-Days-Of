@@ -3,14 +3,14 @@
     <header class="grid gap-2 leading-tight">
       <h1 class="text-center text-xl sm:text-3xl">
         There are an incredible amount of communities to join,
-        <br class="hidden md:block" />find one that interests you and get started!
+        <br class="hidden md:block" />find one that interests you and get
+        started!
       </h1>
       <h2 class="text-sm sm:text-lg text-center text-gray-600">
         Don't see your community listed here?
-        <a
-          href="https://github.com/Roninii/100-Days-Of"
-          class="underline"
-        >Submit a pull request!</a>
+        <a href="https://github.com/Roninii/100-Days-Of" class="underline"
+          >Submit a pull request!</a
+        >
       </h2>
     </header>
 

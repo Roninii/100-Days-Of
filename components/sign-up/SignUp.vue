@@ -21,11 +21,11 @@
   </BaseCard>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent, toRefs, reactive } from '@vue/composition-api'
 import { required, email } from 'vuelidate/lib/validators'
 
-import createUserProfileDocument from '../../utils/createUserProfileDocument.ts'
+import createUserProfileDocument from '../../utils/createUserProfileDocument'
 
 export default defineComponent({
   name: 'SignUp',
@@ -52,7 +52,7 @@ export default defineComponent({
   },
 })
 
-async function createUser(form, $fireAuth, $fireStore) {
+async function createUser(form: any, $fireAuth: any, $fireStore: any) {
   const { displayName, email, password, confirmPass } = toRefs(form)
   if (password.value !== confirmPass.value) return
 

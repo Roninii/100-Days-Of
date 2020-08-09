@@ -25,7 +25,7 @@
   </button>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from '@vue/composition-api'
 
 export default defineComponent({
@@ -41,9 +41,7 @@ export default defineComponent({
     },
   },
 
-  setup(props, ctx) {
-    const { attrs, listeners } = ctx
-
+  setup(props, { attrs, listeners }) {
     return {
       attrs,
       listeners,
@@ -51,5 +49,3 @@ export default defineComponent({
   },
 })
 </script>
-
-<style scoped></style>
