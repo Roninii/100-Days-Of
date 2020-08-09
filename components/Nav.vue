@@ -18,31 +18,36 @@
         <MenuIcon :open="!menuHidden" />
       </button>
       <div
-        class="absolute right-0 text-right bg-white p-4 md:p-0 shadow-lg md:shadow-none rounded-b-md md:rounded-none md:text-center md:relative grid md:grid md:grid-flow-col gap-4 justify-end items-baseline"
-        :class="{ hidden: menuHidden }"
+        class="absolute right-0 text-right bg-white md:p-0 shadow-lg md:shadow-none rounded-b-md md:rounded-none md:text-center md:relative grid md:grid md:grid-flow-col gap-4 justify-end items-baseline"
+        :class="[menuHidden ? 'fade-out' : 'fade-in']"
       >
-        <a v-if="atHome" class="hover:text-purple-500" href="/#about"
+        <a v-if="atHome" class="hover:text-purple-500 py-2 px-4" href="/#about"
           >Learn More</a
         >
-        <nuxt-link v-else class="hover:text-purple-500" to="/">Home</nuxt-link>
+        <nuxt-link v-else class="hover:text-purple-500 py-2 px-4" to="/"
+          >Home</nuxt-link
+        >
 
-        <nuxt-link class="hover:text-purple-500" to="/dashboard"
+        <nuxt-link class="hover:text-purple-500 py-2 px-4" to="/dashboard"
           >Dashboard</nuxt-link
         >
 
-        <nuxt-link class="hover:text-purple-500" to="/communities"
+        <nuxt-link class="hover:text-purple-500 py-2 px-4" to="/communities"
           >Communities</nuxt-link
         >
 
         <!-- Sign in / out -->
         <button
           v-if="isLoggedIn"
-          class="font-medium uppercase leading-4 text-gray-600 hover:text-purple-500 text-right"
+          class="font-medium uppercase leading-4 text-gray-600 hover:text-purple-500 py-2 px-4 text-right"
           @click="logout"
         >
           Sign Out
         </button>
-        <nuxt-link v-else class="hover:text-purple-500 text-right" to="/login"
+        <nuxt-link
+          v-else
+          class="hover:text-purple-500 py-2 px-4 text-right"
+          to="/login"
           >Sign In</nuxt-link
         >
       </div>
@@ -72,3 +77,43 @@ export default defineComponent({
   },
 })
 </script>
+
+<style scoped>
+.fade-out,
+.fade-in {
+  animation-duration: 0.55s;
+  animation-timing-function: ease-in;
+  animation-fill-mode: forwards;
+}
+
+.fade-in {
+  animation-name: close-menu;
+}
+.fade-out {
+  animation-name: open-menu;
+}
+
+@keyframes open-menu {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(1rem);
+  }
+}
+
+@keyframes close-menu {
+  0% {
+    opacity: 0;
+    transform: translateX(1rem);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+</style>
