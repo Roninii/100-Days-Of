@@ -18,8 +18,8 @@ import nuxt_plugin_nuxticons_694452bb from 'nuxt_plugin_nuxticons_694452bb' // S
 import nuxt_plugin_main_1629d315 from 'nuxt_plugin_main_1629d315' // Source: ./firebase-module/main.js (mode: 'all')
 import nuxt_plugin_initAuth_088de3d4 from 'nuxt_plugin_initAuth_088de3d4' // Source: ./firebase-module/initAuth.js (mode: 'client')
 import nuxt_plugin_axios_daed0aa6 from 'nuxt_plugin_axios_daed0aa6' // Source: ./axios.js (mode: 'all')
-import nuxt_plugin_compositionapi_58e58014 from 'nuxt_plugin_compositionapi_58e58014' // Source: ../plugins/composition-api.js (mode: 'all')
-import nuxt_plugin_vuelidate_45aab49a from 'nuxt_plugin_vuelidate_45aab49a' // Source: ../plugins/vuelidate.js (mode: 'all')
+import nuxt_plugin_compositionapi_58e5814a from 'nuxt_plugin_compositionapi_58e5814a' // Source: ../plugins/composition-api.ts (mode: 'all')
+import nuxt_plugin_vuelidate_45aab5d0 from 'nuxt_plugin_vuelidate_45aab5d0' // Source: ../plugins/vuelidate.ts (mode: 'all')
 
 // Component: <ClientOnly>
 Vue.component(ClientOnly.name, ClientOnly)
@@ -219,12 +219,12 @@ async function createApp(ssrContext, config = {}) {
     await nuxt_plugin_axios_daed0aa6(app.context, inject)
   }
 
-  if (typeof nuxt_plugin_compositionapi_58e58014 === 'function') {
-    await nuxt_plugin_compositionapi_58e58014(app.context, inject)
+  if (typeof nuxt_plugin_compositionapi_58e5814a === 'function') {
+    await nuxt_plugin_compositionapi_58e5814a(app.context, inject)
   }
 
-  if (typeof nuxt_plugin_vuelidate_45aab49a === 'function') {
-    await nuxt_plugin_vuelidate_45aab49a(app.context, inject)
+  if (typeof nuxt_plugin_vuelidate_45aab5d0 === 'function') {
+    await nuxt_plugin_vuelidate_45aab5d0(app.context, inject)
   }
 
   // Lock enablePreview in context
@@ -237,9 +237,13 @@ async function createApp(ssrContext, config = {}) {
   // If server-side, wait for async component to be resolved first
   if (process.server && ssrContext && ssrContext.url) {
     await new Promise((resolve, reject) => {
-      router.push(ssrContext.url, resolve, () => {
+      router.push(ssrContext.url, resolve, (err) => {
+        // https://github.com/vuejs/vue-router/blob/v3.3.4/src/history/errors.js
+        if (!err._isRouter) return reject(err)
+        if (err.type !== 1 /* NavigationFailureType.redirected */) return resolve()
+
         // navigated to a different route in router guard
-        const unregister = router.afterEach(async (to, from, next) => {
+        const unregister = router.afterEach(async (to, from) => {
           ssrContext.url = to.fullPath
           app.context.route = await getRouteData(to)
           app.context.params = to.params || {}
