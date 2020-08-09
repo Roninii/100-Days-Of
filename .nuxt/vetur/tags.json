@@ -23,6 +23,12 @@
   "LazyBaseInput": {
     "description": "Auto imported from components/base/BaseInput.vue"
   },
+  "MenuIcon": {
+    "description": "Auto imported from components/base/MenuIcon.vue"
+  },
+  "LazyMenuIcon": {
+    "description": "Auto imported from components/base/MenuIcon.vue"
+  },
   "About": {
     "description": "Auto imported from components/homepage/About.vue"
   },

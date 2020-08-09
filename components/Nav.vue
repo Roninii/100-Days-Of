@@ -15,7 +15,7 @@
         name="menu"
         @click="toggleMenu"
       >
-        {{ menuHidden ? 'Menu' : 'X' }}
+        <MenuIcon :open="!menuHidden" />
       </button>
       <div
         class="absolute right-0 text-right bg-white p-4 md:p-0 shadow-lg md:shadow-none rounded-b-md md:rounded-none md:text-center md:relative grid md:grid md:grid-flow-col gap-4 justify-end items-baseline"
