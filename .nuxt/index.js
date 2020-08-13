@@ -12,12 +12,12 @@ import { createStore } from './store.js'
 
 /* Plugins */
 
-import nuxt_plugin_plugin_4f31a517 from 'nuxt_plugin_plugin_4f31a517' // Source: ./components/plugin.js (mode: 'all')
-import nuxt_plugin_workbox_d0340eee from 'nuxt_plugin_workbox_d0340eee' // Source: ./workbox.js (mode: 'client')
-import nuxt_plugin_nuxticons_694452bb from 'nuxt_plugin_nuxticons_694452bb' // Source: ./nuxt-icons.js (mode: 'all')
-import nuxt_plugin_main_1629d315 from 'nuxt_plugin_main_1629d315' // Source: ./firebase-module/main.js (mode: 'all')
-import nuxt_plugin_initAuth_088de3d4 from 'nuxt_plugin_initAuth_088de3d4' // Source: ./firebase-module/initAuth.js (mode: 'client')
-import nuxt_plugin_axios_daed0aa6 from 'nuxt_plugin_axios_daed0aa6' // Source: ./axios.js (mode: 'all')
+import nuxt_plugin_plugin_1d26b917 from 'nuxt_plugin_plugin_1d26b917' // Source: ./components/plugin.js (mode: 'all')
+import nuxt_plugin_workbox_6537e6ee from 'nuxt_plugin_workbox_6537e6ee' // Source: ./workbox.js (mode: 'client')
+import nuxt_plugin_nuxticons_641dbebb from 'nuxt_plugin_nuxticons_641dbebb' // Source: ./nuxt-icons.js (mode: 'all')
+import nuxt_plugin_main_dda781d6 from 'nuxt_plugin_main_dda781d6' // Source: ./firebase-module/main.js (mode: 'all')
+import nuxt_plugin_initAuth_17a57a16 from 'nuxt_plugin_initAuth_17a57a16' // Source: ./firebase-module/initAuth.js (mode: 'client')
+import nuxt_plugin_axios_787c8ead from 'nuxt_plugin_axios_787c8ead' // Source: ./axios.js (mode: 'all')
 import nuxt_plugin_compositionapi_58e58014 from 'nuxt_plugin_compositionapi_58e58014' // Source: ../plugins/composition-api.js (mode: 'all')
 import nuxt_plugin_vuelidate_45aab49a from 'nuxt_plugin_vuelidate_45aab49a' // Source: ../plugins/vuelidate.js (mode: 'all')
 
@@ -195,28 +195,28 @@ async function createApp(ssrContext, config = {}) {
   }
   // Plugin execution
 
-  if (typeof nuxt_plugin_plugin_4f31a517 === 'function') {
-    await nuxt_plugin_plugin_4f31a517(app.context, inject)
+  if (typeof nuxt_plugin_plugin_1d26b917 === 'function') {
+    await nuxt_plugin_plugin_1d26b917(app.context, inject)
   }
 
-  if (process.client && typeof nuxt_plugin_workbox_d0340eee === 'function') {
-    await nuxt_plugin_workbox_d0340eee(app.context, inject)
+  if (process.client && typeof nuxt_plugin_workbox_6537e6ee === 'function') {
+    await nuxt_plugin_workbox_6537e6ee(app.context, inject)
   }
 
-  if (typeof nuxt_plugin_nuxticons_694452bb === 'function') {
-    await nuxt_plugin_nuxticons_694452bb(app.context, inject)
+  if (typeof nuxt_plugin_nuxticons_641dbebb === 'function') {
+    await nuxt_plugin_nuxticons_641dbebb(app.context, inject)
   }
 
-  if (typeof nuxt_plugin_main_1629d315 === 'function') {
-    await nuxt_plugin_main_1629d315(app.context, inject)
+  if (typeof nuxt_plugin_main_dda781d6 === 'function') {
+    await nuxt_plugin_main_dda781d6(app.context, inject)
   }
 
-  if (process.client && typeof nuxt_plugin_initAuth_088de3d4 === 'function') {
-    await nuxt_plugin_initAuth_088de3d4(app.context, inject)
+  if (process.client && typeof nuxt_plugin_initAuth_17a57a16 === 'function') {
+    await nuxt_plugin_initAuth_17a57a16(app.context, inject)
   }
 
-  if (typeof nuxt_plugin_axios_daed0aa6 === 'function') {
-    await nuxt_plugin_axios_daed0aa6(app.context, inject)
+  if (typeof nuxt_plugin_axios_787c8ead === 'function') {
+    await nuxt_plugin_axios_787c8ead(app.context, inject)
   }
 
   if (typeof nuxt_plugin_compositionapi_58e58014 === 'function') {
@@ -237,9 +237,13 @@ async function createApp(ssrContext, config = {}) {
   // If server-side, wait for async component to be resolved first
   if (process.server && ssrContext && ssrContext.url) {
     await new Promise((resolve, reject) => {
-      router.push(ssrContext.url, resolve, () => {
+      router.push(ssrContext.url, resolve, (err) => {
+        // https://github.com/vuejs/vue-router/blob/v3.3.4/src/history/errors.js
+        if (!err._isRouter) return reject(err)
+        if (err.type !== 1 /* NavigationFailureType.redirected */) return resolve()
+
         // navigated to a different route in router guard
-        const unregister = router.afterEach(async (to, from, next) => {
+        const unregister = router.afterEach(async (to, from) => {
           ssrContext.url = to.fullPath
           app.context.route = await getRouteData(to)
           app.context.params = to.params || {}

@@ -2,22 +2,22 @@
   {
     "name": "Communities",
     "path": "/Communities",
-    "component": "/home/ronini/dev/personal/100-Days-Of/pages/Communities.vue",
+    "component": "/home/ronini/dev/personal/100-days-of/pages/Communities.vue",
     "chunkName": "pages/Communities",
-    "_name": "_9f2e8f34"
+    "_name": "_5a972466"
   },
   {
     "name": "Login",
     "path": "/Login",
-    "component": "/home/ronini/dev/personal/100-Days-Of/pages/Login.vue",
+    "component": "/home/ronini/dev/personal/100-days-of/pages/Login.vue",
     "chunkName": "pages/Login",
-    "_name": "_0c43a470"
+    "_name": "_5b64cc70"
   },
   {
     "name": "index",
     "path": "/",
-    "component": "/home/ronini/dev/personal/100-Days-Of/pages/index.vue",
+    "component": "/home/ronini/dev/personal/100-days-of/pages/index.vue",
     "chunkName": "pages/index",
-    "_name": "_8e772a5e"
+    "_name": "_dd98525e"
   }
 ]
