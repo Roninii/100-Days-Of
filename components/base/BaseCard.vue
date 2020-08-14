@@ -1,7 +1,7 @@
 <template>
   <aside class="shadow rounded-md p-8 lg:w-1/3 m-4">
-    <header v-if="title">
-      <h2 class="text-xl">
+    <header v-if="title" class="border-b border-gray-200">
+      <h2 class="text-lg text-gray-600 uppercase">
         {{ title }}
       </h2>
     </header>

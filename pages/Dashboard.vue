@@ -1,7 +1,7 @@
 <template>
   <article>
     <h1 class="text-4xl">Welcome back, {{ user }}</h1>
-    <BaseCard title="Current Progress"> </BaseCard>
+    <Progress />
   </article>
 </template>
 
