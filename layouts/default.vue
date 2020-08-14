@@ -3,7 +3,7 @@
     <header>
       <Nav />
     </header>
-    <main>
+    <main class="px-8">
       <Nuxt />
     </main>
   </div>
