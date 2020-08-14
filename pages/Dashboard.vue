@@ -1,5 +1,5 @@
 <template>
-  <article>
+  <article class="px-8">
     <h1 class="text-4xl">Welcome back, {{ user }}</h1>
     <Progress />
   </article>

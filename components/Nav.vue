@@ -3,16 +3,20 @@
     class="flex justify-between font-medium uppercase leading-4 text-gray-600 px-8 py-4"
   >
     <div class="flex items-baseline">
-      <nuxt-link class="hover:text-purple-500 text-2xl" to="/"
-        >#100Days</nuxt-link
-      >
+      <nuxt-link exact class="text-2xl" to="/">#100Days</nuxt-link>
     </div>
 
     <nav class="grid grid-flow-col gap-4 justify-end items-baseline">
-      <nuxt-link to="/dashboard">Dashboard</nuxt-link>
+      <nuxt-link active-class="text-purple-800" to="/dashboard"
+        >Dashboard</nuxt-link
+      >
       <a v-if="atHome" href="/#about">Learn More</a>
-      <nuxt-link v-else to="/">Home</nuxt-link>
-      <nuxt-link to="/communities">Communities</nuxt-link>
+      <nuxt-link v-else exact active-class="text-purple-800" to="/"
+        >Home</nuxt-link
+      >
+      <nuxt-link active-class="text-purple-800" to="/communities"
+        >Communities</nuxt-link
+      >
 
       <!-- Sign in / out -->
       <button
@@ -22,7 +26,9 @@
       >
         Sign Out
       </button>
-      <nuxt-link v-else to="/login">Sign In</nuxt-link>
+      <nuxt-link v-else active-class="text-purple-800" to="/login"
+        >Sign In</nuxt-link
+      >
     </nav>
   </header>
 </template>
@@ -48,6 +54,6 @@ export default {
 
 <style scoped>
 a:hover {
-  @apply text-purple-500;
+  @apply text-purple-800;
 }
 </style>
