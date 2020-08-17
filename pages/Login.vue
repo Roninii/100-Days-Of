@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { defineComponent, computed } from '@vue/composition-api'
+import { defineComponent, computed, watch } from '@vue/composition-api'
 
 export default defineComponent({
   name: 'Login',
@@ -14,7 +14,9 @@ export default defineComponent({
     const isLoggedIn = computed(() => !!$store.state.user.currentUser)
 
     // Navigation
-    if (isLoggedIn.value) $router.push({ path: '/' })
+    watch(isLoggedIn, (status) => {
+      if (status) $router.push({ path: '/' })
+    })
 
     return {
       isLoggedIn,
