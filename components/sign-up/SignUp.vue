@@ -1,6 +1,9 @@
 <template>
   <BaseCard title="Don't have an account yet? Sign up now!">
-    <form class="grid gap-10 py-8 leading-relaxed text-lg" @submit.prevent="signUp">
+    <form
+      class="grid gap-10 py-8 leading-relaxed text-lg"
+      @submit.prevent="signUp"
+    >
       <BaseInput
         v-model="displayName"
         label="display name"
@@ -99,5 +102,3 @@ async function createUser(form, $fireAuth, $fireStore, $router) {
   }
 }
 </script>
-
-<style scoped></style>

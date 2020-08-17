@@ -7,11 +7,11 @@
   --border-color: #ddd;
 }
 
-.dark-mode {
-  --color: #ebf4f1;
+/* .dark-mode {
+  --color: #fafafa;
   --color-primary: #41b38a;
-  --color-secondary: #fdf9f3;
-  --bg: #091a28;
+  --color-secondary: #fafafa;
+  --bg: #121212;
   --bg-secondary: #071521;
   --border-color: #0d2538;
 }
@@ -21,7 +21,7 @@
   --bg: #f1e7d0;
   --bg-secondary: #eae0c9;
   --border-color: #ded0bf;
-}
+} */
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
