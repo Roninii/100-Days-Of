@@ -44,7 +44,7 @@
   </BaseCard>
 </template>
 
-<script>
+<script lang="ts">
 import { useGoogleAuth, useSignIn } from '@/composables/'
 import { required, email } from 'vuelidate/lib/validators'
 import { defineComponent, ref } from '@vue/composition-api'
@@ -58,7 +58,6 @@ export default defineComponent({
   setup(props, ctx) {
     const email = ref('')
     const password = ref('')
-    // const error = ref('')
 
     const { signIn } = useSignIn(ctx)
     const { signInWithGoogle } = useGoogleAuth(ctx)

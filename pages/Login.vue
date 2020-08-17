@@ -5,22 +5,16 @@
   </div>
 </template>
 
-<script>
-import { defineComponent, computed, watch } from '@vue/composition-api'
+<script lang="ts">
+import { defineComponent, watchEffect } from '@vue/composition-api'
+import { useRouteGuard } from '@/composables'
 
 export default defineComponent({
   name: 'Login',
   setup(props, { root: { $store, $router } }) {
-    const isLoggedIn = computed(() => !!$store.state.user.currentUser)
+    const { loggedInGuard } = useRouteGuard($store, $router)
 
-    // Navigation
-    watch(isLoggedIn, (status) => {
-      if (status) $router.push({ path: '/' })
-    })
-
-    return {
-      isLoggedIn,
-    }
+    watchEffect(loggedInGuard)
   },
 })
 </script>

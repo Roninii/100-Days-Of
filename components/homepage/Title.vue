@@ -6,7 +6,9 @@
       <div class="relative">
         <div class="change__outer">
           <div class="change__inner">
-            <div class="el" v-for="(challenge, i) in challenges" :key="i">{{ challenge }}</div>
+            <div v-for="(challenge, i) in challenges" :key="i" class="el">
+              {{ challenge }}
+            </div>
           </div>
         </div>
       </div>
@@ -16,16 +18,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from '@vue/composition-api'
+import { defineComponent, ref } from '@vue/composition-api'
 
 export default defineComponent({
   setup() {
-    const challenges: Array<string> = reactive([
-      'Code',
-      'CSS',
-      'Writing',
-      'Cooking',
-    ])
+    const challenges = ref(['Code', 'CSS', 'Writing', 'Cooking'])
 
     return {
       challenges,

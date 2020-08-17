@@ -1,5 +1,8 @@
 <template>
-  <BaseCard title="Don't have an account yet? Sign up now!">
+  <BaseCard
+    title="Don't have an account yet? Sign up now!"
+    class="lg:w-1/3 m-4"
+  >
     <form
       class="grid gap-10 py-8 leading-relaxed text-lg"
       @submit.prevent="signUp"
@@ -43,7 +46,7 @@
   </BaseCard>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent, toRefs, reactive } from '@vue/composition-api'
 import { required, email, minLength, sameAs } from 'vuelidate/lib/validators'
 
@@ -78,7 +81,12 @@ export default defineComponent({
   },
 })
 
-async function createUser(form, $fireAuth, $fireStore, $router) {
+async function createUser(
+  form: any,
+  $fireAuth: any,
+  $fireStore: any,
+  $router: any
+) {
   const { displayName, email, password, confirmPass } = toRefs(form)
 
   try {
