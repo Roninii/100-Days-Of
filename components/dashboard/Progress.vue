@@ -1,5 +1,5 @@
 <template>
-  <BaseCard title="Current Progress">
+  <BaseCard title="Current Progress" class="m-4 max-w-screen-lg">
     <div class="grid grid-cols-5 py-8 items-baseline">
       <section class="col-span-3 leading-none">
         <h2 class="text-gray-600 uppercase text">Challenge</h2>
