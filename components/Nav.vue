@@ -28,7 +28,10 @@
           >Home</nuxt-link
         >
 
-        <nuxt-link class="hover:text-purple-500 py-2 px-4" to="/dashboard"
+        <nuxt-link
+          v-if="isLoggedIn"
+          class="hover:text-purple-500 py-2 px-4"
+          to="/dashboard"
           >Dashboard</nuxt-link
         >
 
@@ -63,7 +66,7 @@ export default defineComponent({
     const atHome = computed(() => $route.path === '/')
     const isLoggedIn = computed(() => !!$store.state.user.currentUser)
     const menuHidden = ref(true)
-    const logout = () => $fireAuth.signOut
+    const logout = () => $fireAuth.signOut()
 
     const toggleMenu = () => (menuHidden.value = !menuHidden.value)
 
@@ -81,7 +84,7 @@ export default defineComponent({
 <style scoped>
 .fade-out,
 .fade-in {
-  animation-duration: 0.55s;
+  animation-duration: 300ms;
   animation-timing-function: ease-in;
   animation-fill-mode: forwards;
 }

@@ -8,12 +8,16 @@
 </template>
 
 <script>
-import { defineComponent, computed } from '@vue/composition-api'
+import { defineComponent, computed, watchEffect } from '@vue/composition-api'
+import { useRouteGuard } from '~/composables'
 
 export default defineComponent({
   name: 'Dashboard',
-  setup(props, { root: { $store } }) {
+  setup(props, { root: { $store, $router } }) {
     const user = computed(() => $store.state.user.currentUser?.displayName)
+    const { notLoggedInGuard } = useRouteGuard($store, $router)
+
+    watchEffect(notLoggedInGuard)
 
     return {
       user,

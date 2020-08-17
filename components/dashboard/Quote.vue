@@ -23,8 +23,6 @@ export default defineComponent({
       quote.quote = qod.quote
     })
 
-    console.log(quote)
-
     return {
       ...toRefs(quote),
     }
