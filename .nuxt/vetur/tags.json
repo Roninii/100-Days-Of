@@ -23,11 +23,23 @@
   "LazyBaseInput": {
     "description": "Auto imported from components/base/BaseInput.vue"
   },
+  "Logs": {
+    "description": "Auto imported from components/dashboard/Logs.vue"
+  },
+  "LazyLogs": {
+    "description": "Auto imported from components/dashboard/Logs.vue"
+  },
   "Progress": {
     "description": "Auto imported from components/dashboard/Progress.vue"
   },
   "LazyProgress": {
     "description": "Auto imported from components/dashboard/Progress.vue"
+  },
+  "Quote": {
+    "description": "Auto imported from components/dashboard/Quote.vue"
+  },
+  "LazyQuote": {
+    "description": "Auto imported from components/dashboard/Quote.vue"
   },
   "About": {
     "description": "Auto imported from components/homepage/About.vue"
