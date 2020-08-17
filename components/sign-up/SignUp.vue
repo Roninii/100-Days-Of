@@ -96,7 +96,7 @@ async function createUser(form, $fireAuth, $fireStore, $router) {
     password.value = ''
     confirmPass.value = ''
 
-    $router.push({ path: '/' })
+    $router.push({ path: '/dashboard' })
   } catch (e) {
     console.log('There was a problem creating the user', e)
   }

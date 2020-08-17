@@ -8,7 +8,7 @@ export function useGoogleAuth({
     signInWithGoogle: async () => {
       try {
         await $fireAuth.signInWithPopup(provider)
-        $router.push({ path: '/' })
+        $router.push({ path: '/dashboard' })
       } catch (e) {
         console.log(e)
       }

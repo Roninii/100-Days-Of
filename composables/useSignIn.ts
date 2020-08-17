@@ -3,7 +3,7 @@ export function useSignIn(ctx: any) {
     try {
       await ctx.root.$fireAuth.signInWithEmailAndPassword(email, password)
 
-      ctx.root.$router.push({ path: '/' })
+      ctx.root.$router.push({ path: '/dashboard' })
     } catch (e) {
       console.log(e)
     }
