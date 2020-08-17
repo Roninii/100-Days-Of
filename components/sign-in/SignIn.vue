@@ -42,6 +42,7 @@
 </template>
 
 <script>
+import { useGoogleAuth } from '@/composables/useGoogleAuth'
 import { required, email } from 'vuelidate/lib/validators'
 import { defineComponent, ref } from '@vue/composition-api'
 
@@ -51,12 +52,12 @@ export default defineComponent({
     password: { required },
   },
 
-  setup(props, ctx) {
+  setup(props, { root: { $fireAuthObj, $fireAuth, $router } }) {
     const email = ref('')
     const password = ref('')
     // const error = ref('')
 
-    const { signInWithGoogle } = useGoogleAuth(ctx)
+    const { signInWithGoogle } = useGoogleAuth($fireAuthObj, $fireAuth, $router)
 
     return {
       email,
@@ -65,20 +66,4 @@ export default defineComponent({
     }
   },
 })
-
-function useGoogleAuth({ root: { $fireAuthObj, $fireAuth, $router } }) {
-  const provider = new $fireAuthObj.GoogleAuthProvider()
-  provider.setCustomParameters({ prompt: 'select_account' })
-
-  return {
-    signInWithGoogle: async () => {
-      try {
-        await $fireAuth.signInWithPopup(provider)
-        $router.push({ path: '/' })
-      } catch (e) {
-        console.log(e)
-      }
-    },
-  }
-}
 </script>
