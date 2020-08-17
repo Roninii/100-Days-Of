@@ -1,3 +1,5 @@
+import { createUserProfileDocument } from '~/composables'
+
 export const state = () => ({
   currentUser: null,
 })
@@ -15,7 +17,12 @@ export const mutations = {
 }
 
 export const actions = {
-  updateCurrentUser({ commit }, { authUser }) {
-    commit('SET_CURRENT_USER', authUser)
+  async updateCurrentUser({ commit }, { authUser }) {
+    if (authUser) {
+      const userRef = await createUserProfileDocument(this.$fireStore, authUser)
+      userRef.onSnapshot((snapshot) => {
+        commit('SET_CURRENT_USER', { id: snapshot.id, ...snapshot.data() })
+      })
+    } else commit('SET_CURRENT_USER', authUser)
   },
 }

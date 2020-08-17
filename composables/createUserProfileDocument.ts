@@ -1,4 +1,4 @@
-export default async function createUserProfileDocument(
+export async function createUserProfileDocument(
   firestore: any,
   userAuth: any,
   additionalData: any
@@ -11,12 +11,12 @@ export default async function createUserProfileDocument(
 
   // if no user is found, create one
   if (!snapShot.exists) {
-    const { displayName, email } = userAuth
+    const { email } = userAuth
+
     const createdAt = new Date()
 
     await userRef
       .set({
-        displayName,
         email,
         createdAt,
         ...additionalData,

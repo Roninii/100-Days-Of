@@ -59,7 +59,7 @@
 import { defineComponent, computed, ref } from '@vue/composition-api'
 
 export default defineComponent({
-  setup(props, { root: { $router, $route, $store, $fireAuth } }) {
+  setup(props, { root: { $route, $store, $fireAuth } }) {
     const atHome = computed(() => $route.path === '/')
     const isLoggedIn = computed(() => !!$store.state.user.currentUser)
     const menuHidden = ref(true)

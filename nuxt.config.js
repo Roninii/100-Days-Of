@@ -29,7 +29,7 @@ export default {
   /*
    ** Global CSS
    */
-  css: [],
+  css: ['@/assets/css/main.css'],
   /*
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
@@ -47,6 +47,7 @@ export default {
     '@nuxt/typescript-build',
     // Doc: https://github.com/nuxt-community/nuxt-tailwindcss
     '@nuxtjs/tailwindcss',
+    '@nuxtjs/color-mode',
   ],
   /*
    ** Nuxt.js modules
@@ -86,4 +87,14 @@ export default {
    ** See https://nuxtjs.org/api/configuration-build/
    */
   build: {},
+
+  router: {
+    extendRoutes(routes, resolve) {
+      routes.push({
+        path: '/login',
+        component: resolve(__dirname, 'pages/Login.vue'),
+        alias: '/sign-up',
+      })
+    },
+  },
 }

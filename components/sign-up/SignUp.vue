@@ -7,18 +7,40 @@
       class="grid gap-10 py-8 leading-relaxed text-lg"
       @submit.prevent="signUp"
     >
-      <BaseInput v-model="displayName" label="display name" required />
-      <BaseInput v-model="email" type="email" label="email" required />
-      <BaseInput v-model="password" type="password" label="password" required />
+      <BaseInput
+        v-model="displayName"
+        label="display name"
+        :error="$v.displayName.$invalid && $v.displayName.$dirty"
+        required
+        @blur="$v.displayName.$touch()"
+      />
+      <BaseInput
+        v-model="email"
+        type="email"
+        label="email"
+        :error="$v.email.$invalid && $v.email.$dirty"
+        required
+        @blur="$v.email.$touch()"
+      />
+      <BaseInput
+        v-model="password"
+        type="password"
+        label="password"
+        :error="$v.password.$invalid && $v.password.$dirty"
+        required
+        @blur="$v.password.$touch()"
+      />
       <BaseInput
         v-model="confirmPass"
         type="password"
         label="confirm password"
         required
+        :error="$v.confirmPass.$invalid && $v.confirmPass.$dirty"
+        @blur="$v.confirmPass.$touch()"
       />
 
       <div class="flex justify-center">
-        <BaseButton type="submit" label="Submit" />
+        <BaseButton type="submit" label="Submit" :disabled="$v.$invalid" />
       </div>
     </form>
   </BaseCard>
@@ -26,27 +48,31 @@
 
 <script lang="ts">
 import { defineComponent, toRefs, reactive } from '@vue/composition-api'
-import { required, email } from 'vuelidate/lib/validators'
+import { required, email, minLength, sameAs } from 'vuelidate/lib/validators'
 
-import createUserProfileDocument from '../../utils/createUserProfileDocument'
+import { createUserProfileDocument } from '@/composables/'
 
 export default defineComponent({
   name: 'SignUp',
   validations: {
     displayName: { required },
     email: { email, required },
-    password: { required },
-    comfirmPass: { required },
+    password: { required, minLength: minLength(6) },
+    confirmPass: {
+      required,
+      minLength: minLength(6),
+      sameAs: sameAs('password'),
+    },
   },
-  setup(props, { root: { $fireStore, $fireAuth } }) {
+  setup(props, { root: { $fireStore, $fireAuth, $router } }) {
     const signUpForm = reactive({
       displayName: '',
       email: '',
-      password: '',
       confirmPass: '',
+      password: '',
     })
 
-    const signUp = () => createUser(signUpForm, $fireAuth, $fireStore)
+    const signUp = () => createUser(signUpForm, $fireAuth, $fireStore, $router)
 
     return {
       signUp,
@@ -55,9 +81,13 @@ export default defineComponent({
   },
 })
 
-async function createUser(form: any, $fireAuth: any, $fireStore: any) {
+async function createUser(
+  form: any,
+  $fireAuth: any,
+  $fireStore: any,
+  $router: any
+) {
   const { displayName, email, password, confirmPass } = toRefs(form)
-  if (password.value !== confirmPass.value) return
 
   try {
     const { user } = await $fireAuth.createUserWithEmailAndPassword(
@@ -65,16 +95,18 @@ async function createUser(form: any, $fireAuth: any, $fireStore: any) {
       password.value
     )
 
-    await createUserProfileDocument($fireStore, user, { ...displayName.value })
+    await createUserProfileDocument($fireStore, user, {
+      displayName: displayName.value,
+    })
 
     displayName.value = ''
     email.value = ''
     password.value = ''
     confirmPass.value = ''
+
+    $router.push({ path: '/dashboard' })
   } catch (e) {
     console.log('There was a problem creating the user', e)
   }
 }
 </script>
-
-<style scoped></style>

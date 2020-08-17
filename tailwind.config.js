@@ -1,14 +1,14 @@
 /*
-** TailwindCSS Configuration File
-**
-** Docs: https://tailwindcss.com/docs/configuration
-** Default: https://github.com/tailwindcss/tailwindcss/blob/master/stubs/defaultConfig.stub.js
-*/
+ ** TailwindCSS Configuration File
+ **
+ ** Docs: https://tailwindcss.com/docs/configuration
+ ** Default: https://github.com/tailwindcss/tailwindcss/blob/master/stubs/defaultConfig.stub.js
+ */
 module.exports = {
   theme: {
     extend: {
       zIndex: {
-        '-1': '-1'
+        '-1': '-1',
       },
       inset: {
         '-1': '-0.25rem',
@@ -28,7 +28,7 @@ module.exports = {
         '-48': '-12rem',
         '-56': '-14rem',
         '-64': '-16rem',
-      }
+      },
     },
     variants: {},
     plugins: [],
@@ -40,8 +40,8 @@ module.exports = {
         'layouts/**/*.vue',
         'pages/**/*.vue',
         'plugins/**/*.js',
-        'nuxt.config.js'
-      ]
-    }
-  }
+        'nuxt.config.js',
+      ],
+    },
+  },
 }
