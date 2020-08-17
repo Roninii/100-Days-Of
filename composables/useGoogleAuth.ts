@@ -1,4 +1,6 @@
-export function useGoogleAuth($fireAuthObj: any, $fireAuth: any, $router: any) {
+export function useGoogleAuth({
+  root: { $fireAuthObj, $fireAuth, $router },
+}: any) {
   const provider = new $fireAuthObj.GoogleAuthProvider()
   provider.setCustomParameters({ prompt: 'select_account' })
 

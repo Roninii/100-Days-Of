@@ -47,7 +47,7 @@
 import { defineComponent, toRefs, reactive } from '@vue/composition-api'
 import { required, email, minLength, sameAs } from 'vuelidate/lib/validators'
 
-import createUserProfileDocument from '../../composables/createUserProfileDocument.ts'
+import { createUserProfileDocument } from '@/composables/'
 
 export default defineComponent({
   name: 'SignUp',

@@ -1,6 +1,9 @@
 <template>
   <BaseCard title="Login with email and password">
-    <form class="grid gap-10 py-8 leading-relaxed text-lg" @submit.prevent="">
+    <form
+      class="grid gap-10 py-8 leading-relaxed text-lg"
+      @submit.prevent="signIn(email, password)"
+    >
       <BaseInput
         v-model="email"
         type="email"
@@ -42,7 +45,7 @@
 </template>
 
 <script>
-import { useGoogleAuth } from '@/composables/useGoogleAuth'
+import { useGoogleAuth, useSignIn } from '@/composables/'
 import { required, email } from 'vuelidate/lib/validators'
 import { defineComponent, ref } from '@vue/composition-api'
 
@@ -52,17 +55,19 @@ export default defineComponent({
     password: { required },
   },
 
-  setup(props, { root: { $fireAuthObj, $fireAuth, $router } }) {
+  setup(props, ctx) {
     const email = ref('')
     const password = ref('')
     // const error = ref('')
 
-    const { signInWithGoogle } = useGoogleAuth($fireAuthObj, $fireAuth, $router)
+    const { signIn } = useSignIn(ctx)
+    const { signInWithGoogle } = useGoogleAuth(ctx)
 
     return {
       email,
       password,
       signInWithGoogle,
+      signIn,
     }
   },
 })

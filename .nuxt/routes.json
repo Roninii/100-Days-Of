@@ -26,5 +26,11 @@
     "component": "/home/ronini/dev/personal/100-days-of/pages/index.vue",
     "chunkName": "pages/index",
     "_name": "_dd98525e"
+  },
+  {
+    "path": "/login",
+    "component": "/home/ronini/dev/personal/100-days-of/pages/Login.vue",
+    "alias": "/sign-up",
+    "_name": "_5b64cc70"
   }
 ]

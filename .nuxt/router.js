@@ -40,6 +40,10 @@ export const routerOptions = {
     path: "/",
     component: _dd98525e,
     name: "index"
+  }, {
+    path: "/login",
+    component: _5b64cc70,
+    alias: "/sign-up"
   }],
 
   fallback: false
