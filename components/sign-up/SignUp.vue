@@ -1,8 +1,5 @@
 <template>
-  <BaseCard
-    title="Don't have an account yet? Sign up now!"
-    class="lg:w-1/3 m-4"
-  >
+  <BaseCard title="Don't have an account yet? Sign up now!">
     <form
       class="grid gap-10 py-8 leading-relaxed text-lg"
       @submit.prevent="signUp"
