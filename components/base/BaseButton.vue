@@ -1,27 +1,31 @@
 <template>
   <button
     v-bind="attrs"
-    :class="[
-      'border-1',
-      disabled ? 'border-gray-500' : 'border-purple-500',
-      disabled ? 'bg-gray-500' : 'bg-purple-500',
-      disabled ? 'cursor-not-allowed' : 'cursor-pointer',
-      'rounded',
-      'px-4',
-      'py-2',
-      'text-white',
-      'text-center',
-      'uppercase',
-      disabled ? '' : 'hover:bg-purple-400',
-      disabled ? '' : 'hover:border-purple-400',
-      'transition',
-      'duration-300',
-      'linear',
-      'text-sm',
-    ]"
+    :class="{
+      'border-1': true,
+      'border-gray-500': disabled,
+      'bg-gray-500': disabled,
+      'border-purple-500': !disabled,
+      'bg-purple-500': !disabled && !nobg,
+      'cursor-not-allowed': disabled,
+      'cursor-pointer': !disabled,
+      rounded: true,
+      'px-4': true,
+      'py-2': true,
+      'text-purple-500': nobg,
+      'text-white': !nobg,
+      'text-center': true,
+      uppercase: true,
+      'hover:bg-purple-400': !disabled,
+      'hover:border-purple-400': !disabled,
+      transition: true,
+      'duration-300': true,
+      linear: true,
+      'text-sm': true,
+    }"
     v-on="listeners"
   >
-    {{ label }}
+    <slot />
   </button>
 </template>
 
@@ -31,11 +35,11 @@ import { defineComponent } from '@vue/composition-api'
 export default defineComponent({
   name: 'BaseButton',
   props: {
-    label: {
-      type: String,
-      required: true,
-    },
     disabled: {
+      type: Boolean,
+      default: false,
+    },
+    nobg: {
       type: Boolean,
       default: false,
     },

@@ -9,7 +9,7 @@ export const mutations = {
     authUser
       ? (state.currentUser = {
           displayName: authUser.displayName,
-          id: authUser.uid,
+          id: authUser.id,
           email: authUser.email,
         })
       : (state.currentUser = null)
@@ -25,4 +25,6 @@ export const actions = {
       })
     } else commit('SET_CURRENT_USER', authUser)
   },
+
+  async joinChallenge({ commit }, challenge) {},
 }

@@ -29,16 +29,18 @@
         </p>
         <BaseButton
           type="submit"
-          label="Log In"
           class="col-span-2 sm:col-span-1"
           :disabled="$v.$invalid"
-        />
+        >
+          Log In
+        </BaseButton>
         <BaseButton
           type="button"
-          label="Google Sign In"
           class="col-span-2 sm:col-span-1"
           @click="signInWithGoogle"
-        />
+        >
+          Google Sign In
+        </BaseButton>
       </div>
     </form>
   </BaseCard>

@@ -37,7 +37,9 @@
       />
 
       <div class="flex justify-center">
-        <BaseButton type="submit" label="Submit" :disabled="$v.$invalid" />
+        <BaseButton type="submit" :disabled="$v.$invalid">
+          Submit
+        </BaseButton>
       </div>
     </form>
   </BaseCard>
@@ -92,9 +94,7 @@ async function createUser(
       password.value
     )
 
-    await createUserProfileDocument($fireStore, user, {
-      displayName: displayName.value,
-    })
+    await createUserProfileDocument($fireStore, user, displayName.value)
 
     displayName.value = ''
     email.value = ''
