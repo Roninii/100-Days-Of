@@ -37,9 +37,9 @@
       />
 
       <div class="flex justify-center">
-        <BaseButton type="submit" :disabled="$v.$invalid">
+        <BasePrimaryButton type="submit" :disabled="$v.$invalid">
           Submit
-        </BaseButton>
+        </BasePrimaryButton>
       </div>
     </form>
   </BaseCard>

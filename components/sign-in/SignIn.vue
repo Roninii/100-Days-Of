@@ -27,20 +27,20 @@
         >
           Please fill out all required fields.
         </p>
-        <BaseButton
+        <BasePrimaryButton
           type="submit"
           class="col-span-2 sm:col-span-1"
           :disabled="$v.$invalid"
         >
           Log In
-        </BaseButton>
-        <BaseButton
+        </BasePrimaryButton>
+        <BaseSecondaryButton
           type="button"
           class="col-span-2 sm:col-span-1"
           @click="signInWithGoogle"
         >
           Google Sign In
-        </BaseButton>
+        </BaseSecondaryButton>
       </div>
     </form>
   </BaseCard>

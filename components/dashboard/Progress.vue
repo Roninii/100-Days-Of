@@ -20,16 +20,15 @@
       </section>
 
       <section class="grid gap-4">
-        <button
-          class="rounded bg-purple-500 text-white font-medium uppercase p-2 w-full"
-        >
+        <BasePrimaryButton>
           Log Progress
-        </button>
-        <button
-          class="rounded bg-purple-500 text-white font-medium uppercase p-2 w-full"
-        >
+        </BasePrimaryButton>
+        <BaseSecondaryButton>
           Pause
-        </button>
+        </BaseSecondaryButton>
+        <BaseTertiaryButton>
+          Leave Challenge
+        </BaseTertiaryButton>
       </section>
     </div>
   </BaseCard>

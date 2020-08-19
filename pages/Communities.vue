@@ -22,9 +22,9 @@
           class="flex justify-between items-center px-4"
         >
           <a :href="community.homepage" target="_blank">{{ community.name }}</a>
-          <BaseButton nobg @click="joinChallenge(community)">
+          <BaseTertiaryButton @click="joinChallenge(community)">
             Join &rarr;
-          </BaseButton>
+          </BaseTertiaryButton>
         </li>
       </ul>
     </section>
