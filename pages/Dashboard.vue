@@ -1,7 +1,7 @@
 <template>
   <div class="md:px-8 grid md:grid-cols-2 col-gap-10 row-gap-20">
     <h1 class="text-3xl md:text-4xl text-center md:text-left md:col-span-2">
-      Welcome back, {{ user.displayName }}
+      Welcome back, {{ user.displayName || '' }}
     </h1>
     <Quote class="min-h-full md:col-span-2" />
     <Progress class="min-h-full" :active-challenges="user.challenges" />
