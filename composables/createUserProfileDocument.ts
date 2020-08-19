@@ -1,7 +1,7 @@
 export async function createUserProfileDocument(
   firestore: any,
   userAuth: any,
-  displayName: string
+  additionalData: any
 ) {
   if (!userAuth) return
 
@@ -14,13 +14,10 @@ export async function createUserProfileDocument(
     const { email } = userAuth
 
     const createdAt = new Date()
+    const user = { email, createdAt, ...additionalData }
 
     await userRef
-      .set({
-        email,
-        createdAt,
-        displayName,
-      })
+      .set(user)
       .catch((e: Error) => console.log('error creating user', e.message))
   }
 

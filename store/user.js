@@ -1,5 +1,3 @@
-import { createUserProfileDocument } from '~/composables'
-
 export const state = () => ({
   currentUser: null,
 })
@@ -9,7 +7,7 @@ export const mutations = {
     authUser
       ? (state.currentUser = {
           displayName: authUser.displayName,
-          id: authUser.id,
+          id: authUser.uid,
           email: authUser.email,
         })
       : (state.currentUser = null)
@@ -19,10 +17,10 @@ export const mutations = {
 export const actions = {
   async updateCurrentUser({ commit }, { authUser }) {
     if (authUser) {
-      const userRef = await createUserProfileDocument(this.$fireStore, authUser)
-      userRef.onSnapshot((snapshot) => {
-        commit('SET_CURRENT_USER', { id: snapshot.id, ...snapshot.data() })
-      })
+      const userRef = this.$fireStore.doc(`users/${authUser.uid}`)
+      const snapShot = await userRef.get()
+
+      commit('SET_CURRENT_USER', { ...authUser, ...snapShot.data() })
     } else commit('SET_CURRENT_USER', authUser)
   },
 

@@ -63,7 +63,7 @@ export default defineComponent({
       sameAs: sameAs('password'),
     },
   },
-  setup(props, { root: { $fireStore, $fireAuth, $router } }) {
+  setup(props, { root: { $fireStore, $fireAuth, $router, $store } }) {
     const signUpForm = reactive({
       displayName: '',
       email: '',
@@ -71,7 +71,8 @@ export default defineComponent({
       password: '',
     })
 
-    const signUp = () => createUser(signUpForm, $fireAuth, $fireStore, $router)
+    const signUp = () =>
+      createUser(signUpForm, $fireAuth, $fireStore, $router, $store)
 
     return {
       signUp,
@@ -84,7 +85,8 @@ async function createUser(
   form: any,
   $fireAuth: any,
   $fireStore: any,
-  $router: any
+  $router: any,
+  $store: any
 ) {
   const { displayName, email, password, confirmPass } = toRefs(form)
 
@@ -94,7 +96,11 @@ async function createUser(
       password.value
     )
 
-    await createUserProfileDocument($fireStore, user, displayName.value)
+    // after creating the db doc, manually update the vuex store
+    await createUserProfileDocument($fireStore, user, {
+      displayName: displayName.value,
+    })
+    $store.dispatch('updateCurrentUser', user)
 
     displayName.value = ''
     email.value = ''
