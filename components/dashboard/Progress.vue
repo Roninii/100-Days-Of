@@ -26,7 +26,7 @@
         <BaseSecondaryButton>
           Pause
         </BaseSecondaryButton>
-        <BaseTertiaryButton>
+        <BaseTertiaryButton @click="leaveChallenge(challenge)">
           Leave Challenge
         </BaseTertiaryButton>
       </section>
@@ -36,6 +36,7 @@
 
 <script>
 import { defineComponent } from '@vue/composition-api'
+import { useChallenge } from '~/composables'
 
 export default defineComponent({
   name: 'Progress',
@@ -43,6 +44,15 @@ export default defineComponent({
     activeChallenges: {
       type: Array,
     },
+  },
+
+  // eslint-disable-next-line
+  setup(props, ctx) {
+    const { leaveChallenge } = useChallenge(ctx)
+
+    return {
+      leaveChallenge,
+    }
   },
 })
 </script>

@@ -17,6 +17,12 @@ export const mutations = {
   JOIN_CHALLENGE({ currentUser }, challenge) {
     currentUser.challenges = [...currentUser.challenges, challenge]
   },
+
+  LEAVE_CHALLENGE({ currentUser }, challenge) {
+    currentUser.challenges = currentUser.challenges.filter(
+      ({ id }) => id !== challenge.id
+    )
+  },
 }
 
 export const actions = {
@@ -40,5 +46,15 @@ export const actions = {
       .catch(console.log)
 
     commit('JOIN_CHALLENGE', challenge)
+  },
+
+  async leaveChallenge({ commit }, { userRef, challenge }) {
+    await userRef
+      .update({
+        challenges: this.$fireStoreObj.FieldValue.arrayRemove(challenge),
+      })
+      .catch(console.log)
+
+    commit('LEAVE_CHALLENGE', challenge)
   },
 }
