@@ -1,6 +1,6 @@
 <template>
   <BaseCard title="Recent Logs">
-    <aside class="grid gap-4 py-8 h-56 overflow-y-scroll">
+    <aside class="grid gap-4 py-8 overflow-y-scroll">
       <article v-for="n in 5" :key="n">
         <header>
           <h3 class="text-gray-600 text-xs uppercase">

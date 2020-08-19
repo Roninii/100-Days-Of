@@ -16,11 +16,15 @@
 
     <section class="mt-16">
       <ul class="grid gap-4 text-gray-600 text-lg sm:text-2xl">
-        <li>
-          <a href="https://www.100daysofcode.com/about/">100 Days of Code</a>
-        </li>
-        <li>
-          <a href="https://100dayscss.com/" target="_blank">100 Days of CSS</a>
+        <li
+          v-for="community in communities"
+          :key="community.id"
+          class="flex justify-between items-center px-4"
+        >
+          <a :href="community.homepage" target="_blank">{{ community.name }}</a>
+          <BaseTertiaryButton @click="joinChallenge(community)">
+            Join &rarr;
+          </BaseTertiaryButton>
         </li>
       </ul>
     </section>
@@ -28,9 +32,30 @@
 </template>
 
 <script>
-export default {
+import { defineComponent, ref } from '@vue/composition-api'
+import { useChallenge } from '~/composables'
+
+export default defineComponent({
   name: 'Communities',
-}
+  setup(props, ctx) {
+    const communities = ref([
+      {
+        id: 'code',
+        name: '100 Days of Code',
+        homepage: 'https://www.100daysofcode.com/about/',
+      },
+      {
+        id: 'css',
+        name: '100 Days of CSS',
+        homepage: 'https://100dayscss.com/',
+      },
+    ])
+
+    const { joinChallenge } = useChallenge(ctx)
+
+    return { communities, joinChallenge }
+  },
+})
 </script>
 
 <style scoped>

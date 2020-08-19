@@ -1,8 +1,5 @@
 <template>
-  <BaseCard
-    title="Don't have an account yet? Sign up now!"
-    class="lg:w-1/3 m-4"
-  >
+  <BaseCard title="Don't have an account yet? Sign up now!">
     <form
       class="grid gap-10 py-8 leading-relaxed text-lg"
       @submit.prevent="signUp"
@@ -40,7 +37,9 @@
       />
 
       <div class="flex justify-center">
-        <BaseButton type="submit" label="Submit" :disabled="$v.$invalid" />
+        <BasePrimaryButton type="submit" :disabled="$v.$invalid">
+          Submit
+        </BasePrimaryButton>
       </div>
     </form>
   </BaseCard>
@@ -64,7 +63,7 @@ export default defineComponent({
       sameAs: sameAs('password'),
     },
   },
-  setup(props, { root: { $fireStore, $fireAuth, $router } }) {
+  setup(props, { root: { $fireStore, $fireAuth, $router, $store } }) {
     const signUpForm = reactive({
       displayName: '',
       email: '',
@@ -72,7 +71,8 @@ export default defineComponent({
       password: '',
     })
 
-    const signUp = () => createUser(signUpForm, $fireAuth, $fireStore, $router)
+    const signUp = () =>
+      createUser(signUpForm, $fireAuth, $fireStore, $router, $store)
 
     return {
       signUp,
@@ -85,7 +85,8 @@ async function createUser(
   form: any,
   $fireAuth: any,
   $fireStore: any,
-  $router: any
+  $router: any,
+  $store: any
 ) {
   const { displayName, email, password, confirmPass } = toRefs(form)
 
@@ -95,9 +96,11 @@ async function createUser(
       password.value
     )
 
+    // after creating the db doc, manually update the vuex store
     await createUserProfileDocument($fireStore, user, {
       displayName: displayName.value,
     })
+    $store.dispatch('updateCurrentUser', user)
 
     displayName.value = ''
     email.value = ''

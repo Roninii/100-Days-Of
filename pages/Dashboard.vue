@@ -1,9 +1,11 @@
 <template>
-  <div class="px-8 grid grid-cols-12 col-gap-4 row-gap-20">
-    <h1 class="text-4xl col-span-12">Welcome back, {{ user }}</h1>
-    <Quote class="col-span-12 min-h-full" />
-    <Progress class="col-span-8 min-h-full" />
-    <Logs class="col-span-4 min-h-full" />
+  <div class="md:px-8 pb-20 grid md:grid-cols-2 col-gap-10 row-gap-20">
+    <h1 class="text-3xl md:text-4xl text-center md:text-left md:col-span-2">
+      Welcome back, {{ user.displayName || '' }}
+    </h1>
+    <Quote class="min-h-full md:col-span-2" />
+    <Progress class="min-h-full" :active-challenges="user.challenges" />
+    <Logs class="min-h-full" />
   </div>
 </template>
 
@@ -14,7 +16,7 @@ import { useRouteGuard } from '~/composables'
 export default defineComponent({
   name: 'Dashboard',
   setup(props, { root: { $store, $router } }) {
-    const user = computed(() => $store.state.user.currentUser?.displayName)
+    const user = computed(() => $store.state.user.currentUser)
     const { notLoggedInGuard } = useRouteGuard($store, $router)
 
     watchEffect(notLoggedInGuard)
