@@ -6,11 +6,16 @@ export const mutations = {
   SET_CURRENT_USER(state, authUser) {
     authUser
       ? (state.currentUser = {
-          displayName: authUser.displayName,
           id: authUser.uid,
+          displayName: authUser.displayName,
           email: authUser.email,
+          challenges: authUser.challenges ?? [],
         })
       : (state.currentUser = null)
+  },
+
+  JOIN_CHALLENGE({ currentUser }, challenge) {
+    currentUser.challenges = [...currentUser.challenges, challenge]
   },
 }
 
@@ -24,5 +29,13 @@ export const actions = {
     } else commit('SET_CURRENT_USER', authUser)
   },
 
-  async joinChallenge({ commit }, challenge) {},
+  async joinChallenge({ commit }, { userRef, challenge }) {
+    await userRef
+      .update({
+        challenges: this.$fireStoreObj.FieldValue.arrayUnion(challenge),
+      })
+      .catch(console.log)
+
+    commit('JOIN_CHALLENGE', challenge)
+  },
 }
