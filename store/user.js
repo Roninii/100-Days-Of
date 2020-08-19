@@ -30,6 +30,9 @@ export const actions = {
   },
 
   async joinChallenge({ commit }, { userRef, challenge }) {
+    // start user at day 0 by default
+    challenge.day = 0
+
     await userRef
       .update({
         challenges: this.$fireStoreObj.FieldValue.arrayUnion(challenge),

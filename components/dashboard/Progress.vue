@@ -15,7 +15,7 @@
       <section class="leading-none">
         <h2 class="text-sm text-gray-600 uppercase">Day</h2>
         <p class="text-purple-500 font-medium text-4xl">
-          {{ challenge.currentDay }}
+          {{ challenge.day }}
         </p>
       </section>
 
