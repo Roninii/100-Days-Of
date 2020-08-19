@@ -4,27 +4,22 @@ type Challenge = {
   homepage?: string
 }
 
-export function useChallenge(
-  $firestore: any,
-  $store: any
-  // $router: any,
-) {
+export function useChallenge(ctx: any) {
+  const {
+    root: { $fireStore, $fireStoreObj, $store, $router },
+  } = ctx
   const joinChallenge = async (challenge: Challenge) => {
-    console.log(`joining ${challenge.name}`)
-    const userRef = $firestore.doc(`users/${$store.state.user.currentUser.id}`)
+    const userRef = $fireStore.doc(`users/${$store.state.user.currentUser.id}`)
     const user = await userRef.get()
 
     if (user.exists) {
       await userRef
-        .set(
-          {
-            challenges: [...user.data().challenges, challenge],
-          },
-          { merge: true }
-        )
+        .update({
+          challenges: $fireStoreObj.FieldValue.arrayUnion(challenge),
+        })
         .catch(console.log)
 
-      console.log(`joined ${challenge.name} successfully.`)
+      $router.push({ path: '/dashboard' })
     }
   }
 

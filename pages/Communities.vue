@@ -37,7 +37,7 @@ import { useChallenge } from '~/composables'
 
 export default defineComponent({
   name: 'Communities',
-  setup(props, { root: { $fireStore, $store } }) {
+  setup(props, ctx) {
     const communities = ref([
       {
         id: 'code',
@@ -51,7 +51,7 @@ export default defineComponent({
       },
     ])
 
-    const { joinChallenge } = useChallenge($fireStore, $store)
+    const { joinChallenge } = useChallenge(ctx)
 
     return { communities, joinChallenge }
   },
