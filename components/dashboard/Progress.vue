@@ -21,37 +21,31 @@
         </section>
 
         <section class="grid gap-4">
-          <BasePrimaryButton>
-            Log Progress
-          </BasePrimaryButton>
-          <BaseSecondaryButton>
-            Pause
-          </BaseSecondaryButton>
-          <BaseTertiaryButton @click="leaveChallenge(challenge)">
-            Leave Challenge
-          </BaseTertiaryButton>
+          <BasePrimaryButton>Log Progress</BasePrimaryButton>
+          <BaseSecondaryButton>Pause</BaseSecondaryButton>
+          <BaseTertiaryButton @click="leaveChallenge(challenge)"
+            >Leave Challenge</BaseTertiaryButton
+          >
         </section>
       </div>
     </div>
     <div v-else class="grid gap-4 text-center text-purple-500 py-8">
-      <p class="text-2xl font-semibold">
-        Ready to start something?
-      </p>
-      <BasePrimaryButton>
-        <nuxt-link to="/communities" class="block w-full">
-          Join A Challenge
-        </nuxt-link>
+      <p class="text-2xl font-semibold">Ready to start something?</p>
+      <BasePrimaryButton class="max-w-md">
+        <nuxt-link to="/communities" class="block w-full"
+          >Join A Challenge</nuxt-link
+        >
       </BasePrimaryButton>
     </div>
   </BaseCard>
 </template>
 
 <script>
-import { defineComponent } from '@vue/composition-api'
-import { useChallenge } from '~/composables'
+import { defineComponent } from "@vue/composition-api";
+import { useChallenge } from "~/composables";
 
 export default defineComponent({
-  name: 'Progress',
+  name: "Progress",
   props: {
     activeChallenges: {
       type: Array,
@@ -60,11 +54,11 @@ export default defineComponent({
 
   // eslint-disable-next-line
   setup(props, ctx) {
-    const { leaveChallenge } = useChallenge(ctx)
+    const { leaveChallenge } = useChallenge(ctx);
 
     return {
       leaveChallenge,
-    }
+    };
   },
-})
+});
 </script>
