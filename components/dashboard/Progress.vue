@@ -4,23 +4,48 @@
             <div
                 v-for="challenge in activeChallenges"
                 :key="challenge.id"
-                class="grid lg:grid-cols-3 row-gap-10 py-8 items-baseline"
+                class="grid lg:grid-cols-3 row-gap-10 py-8 items-baseline relative"
             >
-                <section class="lg:col-span-2 leading-none">
+                <section
+                    v-if="challenge.paused"
+                    class="absolute inset-0 flex justify-center items-center"
+                >
+                    <h2 class="text-purple-500 text-2xl font-bold">
+                        Challenge Paused
+                    </h2>
+                </section>
+
+                <section
+                    class="lg:col-span-2 leading-none"
+                    :class="{
+                        'opacity-25': challenge.paused,
+                    }"
+                >
                     <h2 class="text-gray-600 uppercase text-sm">Challenge</h2>
                     <p class="text-purple-500 text-4xl font-semibold max-w-full">
                         {{ challenge.name }}
                     </p>
                 </section>
 
-                <section class="leading-none">
+                <section
+                    class="leading-none"
+                    :class="{
+                        'opacity-25': challenge.paused,
+                    }"
+                >
                     <h2 class="text-sm text-gray-600 uppercase">Day</h2>
                     <p class="text-purple-500 font-medium text-4xl">
                         {{ currentDay(challenge.start) }}
                     </p>
                 </section>
 
-                <section class="grid gap-4 lg:col-span-3 lg:grid-cols-3">
+                <section
+                    class="grid gap-4 lg:col-span-3 lg:grid-cols-3"
+                    :class="{
+                        'opacity-25': challenge.paused,
+                        'pointer-events-none': challenge.paused,
+                    }"
+                >
                     <BasePrimaryButton>Log Progress</BasePrimaryButton>
                     <BaseSecondaryButton @click="pauseChallenge(challenge)"
                         >Pause</BaseSecondaryButton
@@ -57,10 +82,15 @@ export default defineComponent({
         const { leaveChallenge, pauseChallenge } = useChallenge(ctx);
         const currentDay = (timestamp: any) => ctx.root.$moment().diff(timestamp.toDate(), 'days');
 
+        const test = () => {
+            console.log('test');
+        };
+
         return {
             leaveChallenge,
             currentDay,
             pauseChallenge,
+            test,
         };
     },
 });
