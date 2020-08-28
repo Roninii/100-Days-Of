@@ -21,6 +21,13 @@ export const mutations = {
     LEAVE_CHALLENGE({ currentUser }, challenge) {
         currentUser.challenges = currentUser.challenges.filter(({ id }) => id !== challenge.id);
     },
+
+    PAUSE_CHALLENGE({ currentUser }, challenge) {
+        currentUser.challenges = [
+            ...currentUser.challenges.filter(({ id }) => id !== challenge.id),
+            challenge,
+        ];
+    },
 };
 
 export const actions = {
@@ -54,5 +61,20 @@ export const actions = {
             .catch(console.log);
 
         commit('LEAVE_CHALLENGE', challenge);
+    },
+
+    async pauseChallenge({ commit }, { userRef, challenge, challengeUpdate }) {
+        // currently (08/27/2020) there is no way to update a specific index of an array
+        // so we need to remove it, and then re-add it with any updated data. zzzzZZZZzz
+
+        await userRef
+            .update({ challenges: this.$fireStoreObj.FieldValue.arrayRemove(challenge) })
+            .catch(console.log);
+
+        await userRef
+            .update({ challenges: this.$fireStoreObj.FieldValue.arrayUnion(challengeUpdate) })
+            .catch(console.log);
+
+        commit('PAUSE_CHALLENGE', challengeUpdate);
     },
 };

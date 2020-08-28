@@ -2,6 +2,9 @@ type Challenge = {
     id: string;
     name: string;
     homepage?: string;
+    start?: object;
+    paused?: boolean;
+    pausedDays?: number | undefined;
 };
 
 export function useChallenge(ctx: any) {
@@ -27,8 +30,23 @@ export function useChallenge(ctx: any) {
         }
     };
 
+    const pauseChallenge = async (challenge: Challenge) => {
+        const user = await userRef.get();
+
+        const challengeUpdate = {
+            ...challenge,
+            paused: true,
+            pausedDays: challenge?.pausedDays ?? 1,
+        };
+
+        if (user.exists) {
+            $store.dispatch('user/pauseChallenge', { userRef, challenge, challengeUpdate });
+        }
+    };
+
     return {
         joinChallenge,
         leaveChallenge,
+        pauseChallenge,
     };
 }
