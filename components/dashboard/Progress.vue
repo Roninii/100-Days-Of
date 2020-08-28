@@ -4,24 +4,47 @@
             <div
                 v-for="challenge in activeChallenges"
                 :key="challenge.id"
-                class="grid xl:grid-cols-5 row-gap-10 py-8 items-baseline"
+                class="grid lg:grid-cols-3 row-gap-10 py-8 items-baseline relative"
             >
-                <section class="xl:col-span-3 leading-none">
+                <section
+                    v-if="challenge.paused"
+                    class="bg-white bg-opacity- bg-opacity-90 absolute inset-0 flex flex-col justify-center items-center z-10"
+                >
+                    <h2 class="text-purple-500 text-2xl font-bold">
+                        Challenge Paused
+                    </h2>
+                    <BasePrimaryButton @click="unpauseChallenge(challenge)"
+                        >Unpause</BasePrimaryButton
+                    >
+                </section>
+
+                <section class="lg:col-span-2 leading-none">
                     <h2 class="text-gray-600 uppercase text-sm">Challenge</h2>
-                    <p
-                        class="text-purple-500 text-4xl font-semibold max-w-full"
-                    >{{ challenge.name }}</p>
+                    <p class="text-purple-500 text-4xl font-semibold max-w-full">
+                        {{ challenge.name }}
+                    </p>
                 </section>
 
                 <section class="leading-none">
                     <h2 class="text-sm text-gray-600 uppercase">Day</h2>
-                    <p class="text-purple-500 font-medium text-4xl">{{ challenge.day }}</p>
+                    <p class="text-purple-500 font-medium text-4xl">
+                        {{ currentDay(challenge.start) }}
+                    </p>
                 </section>
 
-                <section class="grid gap-4">
+                <section
+                    class="grid gap-4 lg:col-span-3 lg:grid-cols-3"
+                    :class="{
+                        'pointer-events-none': challenge.paused,
+                    }"
+                >
                     <BasePrimaryButton>Log Progress</BasePrimaryButton>
-                    <BaseSecondaryButton>Pause</BaseSecondaryButton>
-                    <BaseTertiaryButton @click="leaveChallenge(challenge)">Leave Challenge</BaseTertiaryButton>
+                    <BaseSecondaryButton @click="pauseChallenge(challenge)"
+                        >Pause</BaseSecondaryButton
+                    >
+                    <BaseTertiaryButton @click="leaveChallenge(challenge)"
+                        >Leave Challenge</BaseTertiaryButton
+                    >
                 </section>
             </div>
         </div>
@@ -34,7 +57,7 @@
     </BaseCard>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from '@vue/composition-api';
 import { useChallenge } from '~/composables';
 
@@ -48,10 +71,14 @@ export default defineComponent({
 
     // eslint-disable-next-line
     setup(props, ctx) {
-        const { leaveChallenge } = useChallenge(ctx);
+        const { leaveChallenge, pauseChallenge, unpauseChallenge } = useChallenge(ctx);
+        const currentDay = (timestamp: any) => ctx.root.$moment().diff(timestamp.toDate(), 'days');
 
         return {
             leaveChallenge,
+            currentDay,
+            pauseChallenge,
+            unpauseChallenge,
         };
     },
 });
