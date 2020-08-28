@@ -44,9 +44,23 @@ export function useChallenge(ctx: any) {
         }
     };
 
+    const unpauseChallenge = async (challenge: Challenge) => {
+        const user = await userRef.get();
+
+        const challengeUpdate = {
+            ...challenge,
+            paused: false,
+        };
+
+        if (user.exists) {
+            $store.dispatch('user/unpauseChallenge', { userRef, challenge, challengeUpdate });
+        }
+    };
+
     return {
         joinChallenge,
         leaveChallenge,
         pauseChallenge,
+        unpauseChallenge,
     };
 }
