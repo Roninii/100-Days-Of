@@ -4,13 +4,13 @@
             <div
                 v-for="challenge in activeChallenges"
                 :key="challenge.id"
-                class="grid xl:grid-cols-5 row-gap-10 py-8 items-baseline"
+                class="grid lg:grid-cols-3 row-gap-10 py-8 items-baseline"
             >
-                <section class="xl:col-span-3 leading-none">
+                <section class="lg:col-span-2 leading-none">
                     <h2 class="text-gray-600 uppercase text-sm">Challenge</h2>
-                    <p
-                        class="text-purple-500 text-4xl font-semibold max-w-full"
-                    >{{ challenge.name }}</p>
+                    <p class="text-purple-500 text-4xl font-semibold max-w-full">
+                        {{ challenge.name }}
+                    </p>
                 </section>
 
                 <section class="leading-none">
@@ -18,10 +18,12 @@
                     <p class="text-purple-500 font-medium text-4xl">{{ challenge.day }}</p>
                 </section>
 
-                <section class="grid gap-4">
+                <section class="grid gap-4 lg:col-span-3 lg:grid-cols-3">
                     <BasePrimaryButton>Log Progress</BasePrimaryButton>
                     <BaseSecondaryButton>Pause</BaseSecondaryButton>
-                    <BaseTertiaryButton @click="leaveChallenge(challenge)">Leave Challenge</BaseTertiaryButton>
+                    <BaseTertiaryButton @click="leaveChallenge(challenge)"
+                        >Leave Challenge</BaseTertiaryButton
+                    >
                 </section>
             </div>
         </div>
