@@ -1,6 +1,8 @@
 <template>
   <div class="md:px-8 pb-20 grid md:grid-cols-2 col-gap-10 row-gap-20">
-    <h1 class="text-3xl md:text-4xl text-center md:text-left md:col-span-2">
+    <h1
+      class="text-3xl text-gray-800 md:text-4xl text-center md:text-left md:col-span-2"
+    >
       Welcome back, {{ user.displayName || "" }}
     </h1>
     <Quote class="min-h-full md:col-span-2" />

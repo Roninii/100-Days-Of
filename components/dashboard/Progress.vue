@@ -38,7 +38,9 @@
             'pointer-events-none': challenge.paused,
           }"
         >
-          <BasePrimaryButton>Log Progress</BasePrimaryButton>
+          <BasePrimaryButton @mousedown="loggingProgress = true"
+            >Log Progress</BasePrimaryButton
+          >
           <BaseSecondaryButton @click="pauseChallenge(challenge)"
             >Pause</BaseSecondaryButton
           >
@@ -57,32 +59,17 @@
       </BasePrimaryButton>
     </div>
 
-    <portal to="log">
-      <div
-        class="absolute inset-0 bg-gray-800 bg-opacity-50 h-screen flex justify-center items-center"
-      >
-        <BaseCard class="bg-white w-full max-w-lg grid gap-4">
-          <h2 class="text-center text-xl">What did you do today?</h2>
-          <form action="" class="grid place-center gap-4">
-            <textarea
-              id=""
-              name="log"
-              cols="40"
-              rows="10"
-              class="bg-gray-200 rounded p-4"
-            ></textarea>
-
-            <BasePrimaryButton type="submit">Log it!</BasePrimaryButton>
-          </form>
-        </BaseCard>
-      </div>
-    </portal>
+    <!-- Logging Dialog -->
+    <LogModal
+      v-if="loggingProgress"
+      @cancel="loggingProgress = false"
+      @log-progress="logProgress"
+    />
   </BaseCard>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "@vue/composition-api";
-import { Portal } from "portal-vue";
+import { defineComponent, ref } from "@vue/composition-api";
 import { useChallenge } from "~/composables";
 
 export default defineComponent({
@@ -91,9 +78,6 @@ export default defineComponent({
     activeChallenges: {
       type: Array,
     },
-  },
-  components: {
-    Portal,
   },
 
   // eslint-disable-next-line
@@ -104,11 +88,19 @@ export default defineComponent({
     const currentDay = (timestamp: any) =>
       ctx.root.$moment().diff(timestamp.toDate(), "days");
 
+    const loggingProgress = ref(false);
+    const logProgress = (message: string) => {
+      loggingProgress.value = false;
+      console.log(message);
+    };
+
     return {
       leaveChallenge,
       currentDay,
       pauseChallenge,
       unpauseChallenge,
+      loggingProgress,
+      logProgress,
     };
   },
 });

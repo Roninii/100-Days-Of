@@ -65,10 +65,13 @@ export function useChallenge(ctx: any) {
     }
   };
 
+  const logProgress = async (challenge: Challenge, progress: string) => {};
+
   return {
     joinChallenge,
     leaveChallenge,
     pauseChallenge,
     unpauseChallenge,
+    logProgress,
   };
 }
