@@ -38,7 +38,9 @@
             'pointer-events-none': challenge.paused,
           }"
         >
-          <BasePrimaryButton @mousedown="loggingProgress = true"
+          <BasePrimaryButton
+            @mousedown="openLoggingModal(challenge)"
+            @log-progress="updateProgress"
             >Log Progress</BasePrimaryButton
           >
           <BaseSecondaryButton @click="pauseChallenge(challenge)"
@@ -62,15 +64,17 @@
     <!-- Logging Dialog -->
     <LogModal
       v-if="loggingProgress"
+      :challenge="activeChallenge"
       @cancel="loggingProgress = false"
-      @log-progress="logProgress"
+      @log-progress="updateProgress"
     />
   </BaseCard>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "@vue/composition-api";
+import { defineComponent, ref, Ref } from "@vue/composition-api";
 import { useChallenge } from "~/composables";
+import { Challenge, Log } from "~/composables/useChallenge";
 
 export default defineComponent({
   name: "Progress",
@@ -82,25 +86,45 @@ export default defineComponent({
 
   // eslint-disable-next-line
     setup(props, ctx) {
-    const { leaveChallenge, pauseChallenge, unpauseChallenge } = useChallenge(
-      ctx
-    );
+    const {
+      leaveChallenge,
+      pauseChallenge,
+      unpauseChallenge,
+      logProgress,
+    } = useChallenge(ctx);
     const currentDay = (timestamp: any) =>
       ctx.root.$moment().diff(timestamp.toDate(), "days");
 
     const loggingProgress = ref(false);
-    const logProgress = (message: string) => {
+    const activeChallenge: Ref<Challenge | null> = ref(null);
+
+    const openLoggingModal = (challenge: Challenge) => {
+      activeChallenge.value = challenge;
+      loggingProgress.value = true;
+    };
+
+    const updateProgress = ({
+      challenge,
+      log,
+    }: {
+      challenge: Challenge;
+      log: Log;
+    }) => {
       loggingProgress.value = false;
-      console.log(message);
+
+      logProgress(challenge, log);
     };
 
     return {
+      activeChallenge,
       leaveChallenge,
       currentDay,
       pauseChallenge,
       unpauseChallenge,
       loggingProgress,
       logProgress,
+      openLoggingModal,
+      updateProgress,
     };
   },
 });

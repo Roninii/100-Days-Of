@@ -9,11 +9,11 @@
       >
         <form
           class="grid place-center gap-4"
-          @submit.prevent="$emit('log-progress', message)"
+          @submit.prevent="$emit('log-progress', { challenge, log })"
         >
           <textarea
             id=""
-            v-model="message"
+            v-model="log"
             name="log"
             cols="40"
             rows="10"
@@ -41,9 +41,14 @@ export default defineComponent({
   components: {
     Portal,
   },
+  props: {
+    challenge: {
+      type: Object,
+    },
+  },
   data() {
     return {
-      message: "",
+      log: "",
     };
   },
 });

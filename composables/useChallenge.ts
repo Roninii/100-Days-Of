@@ -1,10 +1,16 @@
-type Challenge = {
+export type Challenge = {
   id: string;
   name: string;
   homepage?: string;
   start?: object;
   paused?: boolean;
   pausedDays?: number | undefined;
+  logs?: object[];
+};
+
+export type Log = {
+  date: string;
+  log: string;
 };
 
 export function useChallenge(ctx: any) {
@@ -65,7 +71,10 @@ export function useChallenge(ctx: any) {
     }
   };
 
-  const logProgress = async (challenge: Challenge, progress: string) => {};
+  const logProgress = (challenge: Challenge, log: Log) => {
+    console.log(log);
+    $store.dispatch("user/logProgress", { userRef, challenge, log });
+  };
 
   return {
     joinChallenge,
