@@ -115,10 +115,13 @@ export const actions = {
         commit('UNPAUSE_CHALLENGE', challengeUpdate);
     },
 
-    async logProgress({ commit }, { userRef, challenge, log }) {
+    async logProgress({ commit, state }, { userRef, challenge, log }) {
         const update = {
             ...challenge,
-            logs: [log],
+            logs: [
+                ...state.currentUser.challenges.find((chal) => chal.id === challenge.id).logs,
+                log,
+            ],
         };
 
         await userRef
