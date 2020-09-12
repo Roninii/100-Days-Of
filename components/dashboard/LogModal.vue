@@ -1,10 +1,11 @@
 <template>
     <portal to="log">
         <div
-            class="absolute inset-0 bg-gray-800 bg-opacity-50 h-screen flex justify-center items-center"
+            class="fixed inset-0 z-10 bg-gray-800 bg-opacity-50 h-screen flex justify-center items-center"
+            @click="$emit('cancel')"
         >
             <BaseCard
-                class="bg-white w-full max-w-lg grid gap-4 text-center"
+                class="bg-white w-full max-w-lg grid gap-4 text-center z-50"
                 title="What did you do today?"
             >
                 <form
