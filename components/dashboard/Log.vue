@@ -24,7 +24,7 @@ export default defineComponent({
 
     setup(props, { root: { $moment } }) {
         const { log }: { log: Ref<Log> } = toRefs(props);
-        const date = computed(() => $moment(log.value.date.seconds).format('MMM, Do, YYYY'));
+        const date = computed(() => $moment.unix(log.value.date.seconds).format('MMM, Do, YYYY'));
         return {
             date,
         };

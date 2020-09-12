@@ -12,7 +12,7 @@
                     @submit.prevent="
                         $emit('log-progress', {
                             challenge,
-                            log: { challenge: challenge.name, date: new Date(), logMessage },
+                            log: { challenge: challenge.name, logMessage },
                         })
                     "
                 >

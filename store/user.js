@@ -120,7 +120,7 @@ export const actions = {
             ...challenge,
             logs: [
                 ...state.currentUser.challenges.find((chal) => chal.id === challenge.id).logs,
-                log,
+                { ...log, date: this.$fireStoreObj.Timestamp.now() },
             ],
         };
 
