@@ -1,6 +1,14 @@
 <template>
-    <BaseCard title="Recent Logs">
-        <aside class="grid gap-4 py-8 overflow-y-scroll">
+    <BaseCard title="Recent Logs" class="relative">
+        <div
+            class="hidden lg:block h-16 pointer-events-none absolute inset-x-0 z-10"
+            style="background-image: linear-gradient(rgb(255, 255, 255), rgba(255, 255, 255, 0))"
+        ></div>
+        <div
+            class="hidden lg:block h-32 pointer-events-none absolute bottom-0 inset-x-0 z-10"
+            style="background-image: linear-gradient(rgba(255, 255, 255, 0), rgb(255, 255, 255))"
+        ></div>
+        <aside class="grid gap-4 py-8 overflow-y-scroll h-64 relative">
             <Log v-for="(log, i) in logs" :key="i" :log="log" />
         </aside>
     </BaseCard>
