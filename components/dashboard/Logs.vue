@@ -1,28 +1,22 @@
 <template>
     <BaseCard title="Recent Logs">
         <aside class="grid gap-4 py-8 overflow-y-scroll">
-            <Log :log="log" />
+            <Log v-for="(log, i) in logs" :key="i" :log="log" />
         </aside>
     </BaseCard>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api';
+import { Challenge, Log } from '~/composables/useChallenge';
 
 export default defineComponent({
     name: 'Logs',
-    data() {
-        return {
-            log: {
-                challenge: '#100DaysOfCode',
-                message:
-                    'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ea quos numquam rerum harum in hic libero! Suscipit vel itaque labore. ',
-            },
-        };
-    },
     computed: {
-        date() {
-            return this.$moment().format('l');
+        logs() {
+            return this.$store.state.user.currentUser.challenges?.flatMap((chal: Challenge) =>
+                chal?.logs?.map((log: Log) => log)
+            );
         },
     },
 });
