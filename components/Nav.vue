@@ -5,7 +5,7 @@
         </div>
 
         <nav class="relative">
-            <button class="md:hidden p-4" type="button" name="menu" @click="toggleMenu">
+            <button class="md:hidden p-4" type="button" aria-label="menu" @click="toggleMenu">
                 <MenuIcon :open="!menuHidden" />
             </button>
             <div
