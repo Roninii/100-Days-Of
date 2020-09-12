@@ -1,6 +1,7 @@
 const plugin = require('tailwindcss/plugin');
 
 module.exports = {
+    purge: ['./**/*.html', './**/*.vue'],
     theme: {
         extend: {
             zIndex: {
@@ -26,10 +27,10 @@ module.exports = {
                 '-64': '-16rem',
             },
             opacity: {
-                '10': '0.1',
-                '20': '0.2',
-                '90': '0.90',
-                '95': '0.95',
+                10: '0.1',
+                20: '0.2',
+                90: '0.90',
+                95: '0.95',
             },
         },
         variants: {},
