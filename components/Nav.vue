@@ -11,6 +11,7 @@
             <div
                 class="fixed px-8 right-0 text-right bg-white md:p-0 shadow-lg md:shadow-none rounded-b-md md:rounded-none md:text-center md:relative grid md:grid md:grid-flow-col gap-4 justify-end items-baseline"
                 :class="[menuHidden ? 'fade-out' : 'fade-in']"
+                @click="toggleMenu"
             >
                 <a v-if="atHome" class="hover:text-purple-500 py-2 px-4" href="/#about"
                     >Learn More</a
