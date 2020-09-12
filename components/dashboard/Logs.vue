@@ -9,7 +9,9 @@
             style="background-image: linear-gradient(rgba(255, 255, 255, 0), rgb(255, 255, 255))"
         ></div>
         <aside class="grid gap-4 py-8 overflow-y-scroll h-64 relative">
-            <Log v-for="(log, i) in logs" :key="i" :log="log" />
+            <template v-for="(log, i) in logs">
+                <Log v-if="log" :key="i" :log="log" />
+            </template>
         </aside>
     </BaseCard>
 </template>
