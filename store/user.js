@@ -116,10 +116,12 @@ export const actions = {
     },
 
     async logProgress({ commit, state }, { userRef, challenge, log }) {
+        // const currentLogs =
         const update = {
             ...challenge,
             logs: [
-                ...state.currentUser.challenges.find((chal) => chal.id === challenge.id).logs,
+                ...(state.currentUser.challenges.find((chal) => chal.id === challenge.id).logs ??
+                    []),
                 { ...log, date: this.$fireStoreObj.Timestamp.now() },
             ],
         };
