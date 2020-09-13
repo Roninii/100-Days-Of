@@ -13,8 +13,8 @@
                 :class="[menuHidden ? 'fade-out' : 'fade-in']"
                 @click="toggleMenu"
             >
-                <a v-if="atHome" class="hover:text-purple-500 py-2 px-4" href="/#about"
-                    >Learn More</a
+                <nuxt-link v-if="atHome" class="hover:text-purple-500 py-2 px-4" to="/#about"
+                    >Learn More</nuxt-link
                 >
                 <nuxt-link v-else class="hover:text-purple-500 py-2 px-4" to="/">Home</nuxt-link>
 
