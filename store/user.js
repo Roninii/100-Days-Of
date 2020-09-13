@@ -35,6 +35,13 @@ export const mutations = {
             challenge,
         ];
     },
+
+    LOG_CHALLENGE({ currentUser }, challenge) {
+        currentUser.challenges = [
+            ...currentUser.challenges.filter(({ id }) => id !== challenge.id),
+            challenge,
+        ];
+    },
 };
 
 export const actions = {
@@ -75,11 +82,15 @@ export const actions = {
         // so we need to remove it, and then re-add it with any updated data. zzzzZZZZzz
 
         await userRef
-            .update({ challenges: this.$fireStoreObj.FieldValue.arrayRemove(challenge) })
+            .update({
+                challenges: this.$fireStoreObj.FieldValue.arrayRemove(challenge),
+            })
             .catch(console.log);
 
         await userRef
-            .update({ challenges: this.$fireStoreObj.FieldValue.arrayUnion(challengeUpdate) })
+            .update({
+                challenges: this.$fireStoreObj.FieldValue.arrayUnion(challengeUpdate),
+            })
             .catch(console.log);
 
         commit('PAUSE_CHALLENGE', challengeUpdate);
@@ -90,13 +101,43 @@ export const actions = {
         // so we need to remove it, and then re-add it with any updated data. zzzzZZZZzz
 
         await userRef
-            .update({ challenges: this.$fireStoreObj.FieldValue.arrayRemove(challenge) })
+            .update({
+                challenges: this.$fireStoreObj.FieldValue.arrayRemove(challenge),
+            })
             .catch(console.log);
 
         await userRef
-            .update({ challenges: this.$fireStoreObj.FieldValue.arrayUnion(challengeUpdate) })
+            .update({
+                challenges: this.$fireStoreObj.FieldValue.arrayUnion(challengeUpdate),
+            })
             .catch(console.log);
 
         commit('UNPAUSE_CHALLENGE', challengeUpdate);
+    },
+
+    async logProgress({ commit, state }, { userRef, challenge, log }) {
+        // const currentLogs =
+        const update = {
+            ...challenge,
+            logs: [
+                ...(state.currentUser.challenges.find((chal) => chal.id === challenge.id).logs ??
+                    []),
+                { ...log, date: this.$fireStoreObj.Timestamp.now() },
+            ],
+        };
+
+        await userRef
+            .update({
+                challenges: this.$fireStoreObj.FieldValue.arrayRemove(challenge),
+            })
+            .catch(console.log);
+
+        await userRef
+            .update({
+                challenges: this.$fireStoreObj.FieldValue.arrayUnion(update),
+            })
+            .catch(console.log);
+
+        commit('LOG_CHALLENGE', update);
     },
 };
